@@ -1,6 +1,6 @@
 const Collection = require("../models/Collection");
 
-exports.getIndex = (req, res) =>
+exports.getCollectionIndex = (req, res) =>
     Collection.fetchAll(collections =>
         res.render("collection/index", {
             pageTitle: "collections",
