@@ -1,0 +1,32 @@
+<form 
+    class="form-inline my-2" 
+    action="/collection/edit/" 
+    method="POST"
+>
+    <input 
+        type="hidden" 
+        name="collectionId" 
+        value="<%= collection.id %>" 
+    />
+    <label for="collection-name" class="mr-2">
+        Collection Name:
+    </label>
+    <input 
+        type="text" 
+        class="form-control mr-2" 
+        id="collection-name"
+        name="collectionName"
+        placeholder="New Collection Name" 
+        value="<%= collection.name %>"
+        required 
+    />
+    <div class="btn-group">
+        <button 
+        class="btn btn-success mx-1"
+        type="submit"
+        >
+            save
+        </button>
+        <a href="/" class="btn btn-secondary mx-1">cancel</a>
+    </div>
+</form>

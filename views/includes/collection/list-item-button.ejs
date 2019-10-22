@@ -1,0 +1,12 @@
+    <a
+        class="btn btn-<%= btnColor %> mx-1 
+            <% if (isEditing || isDeleting) { %>
+                disabled
+            <% } %>
+        "
+        <% if (!isEditing || !isDeleting) { %>
+            href="<%= btnLink + collectionId %>"
+        <% } %>
+    >
+        <%= btnLabel %>
+    </a>

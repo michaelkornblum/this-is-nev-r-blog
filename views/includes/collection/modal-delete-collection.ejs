@@ -1,0 +1,36 @@
+<div class="modal" style="display:block;" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Warning!!!</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                    You are about to delete a collection. When you delete a
+                    collection all associated fields and items will be deleted too.
+                </p>
+                <p>
+                    Do you really want to do this?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary" href="/">
+                    Cancel
+                </a>
+                <form action="/collection/delete" method="POST">
+                    <input 
+                        type="hidden" 
+                        name="collectionId"
+                        value="<%= collectionId %>"
+                    >
+                    <button 
+                        type="submit" 
+                        class="btn btn-danger"
+                    >
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
