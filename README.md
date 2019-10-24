@@ -33,11 +33,11 @@ A collection is the top level of how data is stored in Nev-R-Blog. Each collecti
 
 ### Fields
 
-A field is used to create those pieces of data that will ultimately be used to create _items_ in a _collection_. For example an item in an author collection may have a field for the authors name, a field for the authors biography, and a field for the authors portrait.
+A field is used to create those pieces of data that will ultimately be used to create _entries_ in a _collection_. For example an item in an author collection may have a field for the authors name, a field for the authors biography, and a field for the authors portrait.
 
-### Items
+### Entry
 
-An item is the entry in a collection. The data structure of each item is dictated by its associated fields and is represented as an HTML form.
+An entry is an item in a collection. The data structure of each entry is dictated by its associated fields and is represented as an HTML form.
 
 ## When Will a Working Version be Ready?
 
