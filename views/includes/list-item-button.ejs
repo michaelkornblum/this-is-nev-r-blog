@@ -1,0 +1,12 @@
+    <a
+        class="btn btn-<%= btnColor %> mx-1 
+            <% if (isDisabled) { %>
+                disabled
+            <% } %>
+        "
+        <% if (!isDisabled) { %>
+            href="<%= btnLink + itemId %>"
+        <% } %>
+    >
+        <%= btnLabel %>
+    </a>
