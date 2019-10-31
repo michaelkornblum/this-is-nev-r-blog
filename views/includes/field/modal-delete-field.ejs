@@ -1,0 +1,41 @@
+<div class="modal" style="display:block" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Warning!!!</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                    You are about to delete a field. When you delete a
+                    field all items that use that field will be deleted too.
+                </p>
+                <p>
+                    Do you really want to do this?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary" href="/fields?collectionId=<%= collection.id %>">
+                    Cancel
+                </a>
+                <form action="/field/delete" method="POST">
+                    <input 
+                        type="hidden" 
+                        name="fieldId"
+                        value="<%= fieldId %>"
+                    >
+                    <input
+                        type="hidden"
+                        name="collectionId"
+                        value=<%= collectionId %>
+                    >
+                    <button 
+                        type="submit" 
+                        class="btn btn-danger"
+                    >
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

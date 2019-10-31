@@ -1,7 +1,7 @@
 <%- include('../includes/head.ejs') %>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <h1 class="navbar-brand mt-1">Collections</h1>
+<nav class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+    <h1 class="navbar-brand">Collections</h1>
 </nav>
 
 <!-- Show modal when deleting collection -->
@@ -36,28 +36,25 @@
                     <div class="btn-group" role="group">
                         <!-- Fields Link -->
                         <%- include('../includes/list-item-button.ejs', {
-                            itemId: collection.id,
                             btnColor: 'primary',
                             btnLabel: 'fields',
-                            btnLink: `/fields?collectionId=`,
+                            btnLink: `/fields?collectionId=${collection.id}`,
                             isDisabled: isEditing || isDeleting
                         }) %>
 
                         <!-- Items Link -->
                         <%- include('../includes/list-item-button.ejs', {
-                            itemId: collection.id,
                             btnColor: 'secondary',
                             btnLabel: 'items',
-                            btnLink: `/items?collectionId=`,
+                            btnLink: `/items?collectionId=${collection.id}`,
                             isDisabled: isEditing || isDeleting
                         }) %>
 
                         <!-- Edit Link -->
                         <%- include('../includes/list-item-button.ejs', {
-                            itemId: collection.id,
                             btnColor: 'warning',
                             btnLabel: 'edit',
-                            btnLink: '/collection/edit?collectionId=',
+                            btnLink: `/collection/edit?collectionId=${collection.id}`,
                             isDisabled: isEditing || isDeleting
                         }) %>
 
@@ -66,7 +63,7 @@
                             itemId: collection.id,
                             btnColor: 'danger',
                             btnLabel: 'delete',
-                            btnLink: '/collection/delete?collectionId=',
+                            btnLink: `/collection/delete?collectionId=${collection.id}`,
                             isDisabled: isEditing || isDeleting
                         }) %>
                     </div>

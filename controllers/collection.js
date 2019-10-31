@@ -1,4 +1,5 @@
 const Collection = require("../models/Collection");
+const Field = require("../models/Field");
 
 exports.getCollectionIndex = (req, res) =>
     Collection.fetchAll(collections =>
@@ -44,6 +45,13 @@ exports.postEditCollection = (req, res) =>
     );
 
 exports.postDeleteCollection = (req, res) =>
-    Collection.delete(req.body.collectionId, err =>
-        err ? console.error(err) : res.redirect("/")
+    Field.deleteByCollectionId(req.body.collectionId, err =>
+        err
+            ? console.error(err)
+            : Collection.delete(req.body.collectionId, err =>
+                err ? console.error(err) : res.redirect("/")
+            )
     );
+// Collection.delete(req.body.collectionId, err =>
+//     err ? console.error(err) : res.redirect("/")
+// );

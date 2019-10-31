@@ -1,0 +1,79 @@
+<%- include('../includes/head.ejs') %>
+
+<nav
+    class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
+>
+    <h1 class="navbar-brand"><%= collection.name %> fields</h1>
+    <a href="/" class="nav-link">Back to Collections</a>
+</nav>
+
+<!-- Show modal when deleting collection -->
+<% if (isDeleting) { %> 
+<%- include('../includes/field/modal-delete-field.ejs', {
+    collectionId: collection.id, 
+    fieldId
+}) %>
+<% } %>
+
+<div class="container-fluid">
+    <!-- Show message when there are no collections-->
+    <% if (!fields.length) { %>
+    <h2>No Fields on File</h2>
+    <p>Create a new field below to get started.</p>
+    <% } else { %>
+    <h2>Field List</h2>
+    <% } %>
+
+    <!-- Add field form -->
+    <%- include('../includes/field/form-add-field.ejs', {
+        fieldTypes,
+        capitalize,
+        collectionId: collection.id, 
+        disabled: isDeleting === true
+    }) %>
+
+    <!-- Show fields belonging to collection when they exist -->
+    <% if (fields.length) { %>
+        <ul class="list-group list-group-flush">
+            <% for (let field of fields) { %>
+                <li class="list-group-item d-flex justify-content-between align-items-center"><%= field.name %>
+
+                    <div class="btn-group" role="group">
+                        <!-- Move field up one place -->
+                        <%- include('../includes/field/form-move-field.ejs', {
+                            collectionId: collection.id,
+                            fieldId: field.id,
+                            direction: 'up',
+                            isDisabled: field.order === 1 || isDeleting
+                        }) %>
+
+                        <!-- Move field down one place -->
+                        <%- include('../includes/field/form-move-field.ejs', {
+                            collectionId: collection.id,
+                            fieldId: field.id,
+                            direction: 'down',
+                            isDisabled: field.order === fields.length || isDeleting
+                        }) %>
+
+                        <!-- Link to Edit Field -->
+                        <%- include('../includes/list-item-button.ejs', {
+                            itemId: field.id,
+                            btnColor: 'warning',
+                            btnLabel: 'edit',
+                            btnLink: `#`,
+                            isDisabled: isDeleting
+                        }) %>
+
+                        <!-- Link to delete field -->
+                        <%- include('../includes/list-item-button.ejs', {
+                            btnColor: 'danger',
+                            btnLabel: 'delete',
+                            btnLink: `/field/delete?collectionId=${collection.id}&fieldId=${field.id}`,
+                            isDisabled: isDeleting
+                        }) %>
+                    </div>
+                </li>
+            <% } %>
+        </ul>
+    <% } %>
+</div>

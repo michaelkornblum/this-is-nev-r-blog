@@ -1,22 +1,26 @@
 const express = require("express");
 
 const {
-    getIndex,
-    getEditField,
+    getFieldIndex,
+    // getEditField,
     getDeleteField,
     postAddField,
-    postEditField,
+    postMoveUpField,
+    postMoveDownField,
+    // postEditField,
     postDeleteField
 } = require("../controllers/field");
 
 const router = express.Router();
 
-router.get("/field", getIndex);
-router.get("/field/edit", getEditField);
+router.get("/fields", getFieldIndex);
+// router.get("/field/edit", getEditField);
 router.get("/field/delete", getDeleteField);
 
-router.post("/collection/add", postAddField);
-router.post("/collection/edit", postEditField);
-router.post("/collection/delete", postDeleteField);
+router.post("/field/add", postAddField);
+router.post("/field/move-up", postMoveUpField);
+router.post("/field/move-down", postMoveDownField);
+// router.post("/collection/edit", postEditField);
+router.post("/field/delete", postDeleteField);
 
 module.exports = router;

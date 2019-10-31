@@ -46,5 +46,23 @@ module.exports = fileName => {
                 writeDataFile(dataFile, newArr, callBack);
             });
         }
+
+        static findByCollectionId(collectionId, callBack) {
+            readDataFile(dataFile, arr => {
+                const newArr = arr.filter(
+                    item => item.collectionId === collectionId
+                );
+                callBack(newArr);
+            });
+        }
+
+        static deleteByCollectionId(collectionId, callBack) {
+            readDataFile(dataFile, arr => {
+                const newArr = arr.filter(
+                    item => item.collectionId !== collectionId
+                );
+                writeDataFile(dataFile, newArr, callBack);
+            });
+        }
     };
 };

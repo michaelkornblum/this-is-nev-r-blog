@@ -1,0 +1,13 @@
+<form action="/field/move-<%= direction %>" method="POST">
+    <input type="hidden" name="fieldId" value="<%= fieldId %>" />
+    <input type="hidden" name="collectionId" value="<%= collectionId %>" />
+    <button 
+        class="btn btn-info mx-1" 
+        type="submit" 
+        <% if (isDisabled) { %>
+            disabled
+        <% } %>
+    >
+        move <%= direction %> 
+    </button>
+</form>
