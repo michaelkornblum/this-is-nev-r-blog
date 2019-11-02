@@ -10,4 +10,14 @@ module.exports = class Field extends Base {
         this.order = order;
         this.config = config;
     }
+
+    static findNext(array, itemOrder, callBack) {
+        const nextItem = array.find(item => item.order === itemOrder + 1);
+        callBack(nextItem);
+    }
+
+    static findPrev(array, itemOrder, callBack) {
+        const nextItem = array.find(item => item.order === itemOrder - 1);
+        callBack(nextItem);
+    }
 };
