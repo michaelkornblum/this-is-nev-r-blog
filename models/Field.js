@@ -20,4 +20,9 @@ module.exports = class Field extends Base {
         const nextItem = array.find(item => item.order === itemOrder - 1);
         callBack(nextItem);
     }
+
+    static findRemaining(array, itemOrder, callBack) {
+        const remainingItems = array.filter(item => item.order > itemOrder);
+        callBack(remainingItems);
+    }
 };
