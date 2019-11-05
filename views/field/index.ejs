@@ -9,10 +9,10 @@
 
 <!-- Show modal when deleting collection -->
 <% if (isDeleting) { %> 
-<%- include('../includes/field/modal-delete-field.ejs', {
-    collectionId: collection.id, 
-    fieldId
-}) %>
+    <%- include('../includes/field/modal-delete-field.ejs', {
+        collectionId: collection.id, 
+        fieldId
+    }) %>
 <% } %>
 
 <div class="container-fluid">
@@ -37,7 +37,6 @@
         <ul class="list-group list-group-flush">
             <% for (let field of fields) { %>
                 <li class="list-group-item d-flex justify-content-between align-items-center"><%= field.name %>
-
                     <div class="btn-group" role="group">
                         <!-- Move field up one place -->
                         <%- include('../includes/field/form-move-field.ejs', {
@@ -57,10 +56,9 @@
 
                         <!-- Link to Edit Field -->
                         <%- include('../includes/list-item-button.ejs', {
-                            itemId: field.id,
                             btnColor: 'warning',
                             btnLabel: 'edit',
-                            btnLink: `#`,
+                            btnLink: `/field/edit?collectionId=${collection.id}&fieldId=${field.id}`,
                             isDisabled: isDeleting
                         }) %>
 
