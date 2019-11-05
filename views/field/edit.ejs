@@ -1,0 +1,15 @@
+<%- include('../includes/head.ejs') %>
+
+<nav
+	class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
+>
+	<h1 class="navbar-brand">
+		Edit Field: <b><%= field.name %>(<%= field.type %>)</b>
+	</h1>
+	<a 
+		class="nav-link" 
+		href="/fields?collectionId=<%= collection.id %>" 
+	>
+		Back to <%= capitalize(collection.name) %> Fields
+	</a>
+</nav>
