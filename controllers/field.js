@@ -35,6 +35,17 @@ exports.getFieldIndex = (req, res) =>
 		),
 	);
 
+exports.getEditField = (req, res) =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findById(req.query.fieldId, field =>
+			res.render('field/edit', {
+				field,
+				collection,
+				capitalize
+			}),
+		),
+	);
+
 exports.getDeleteField = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
 		Field.findByCollectionId(collection.id, fields =>
@@ -131,6 +142,24 @@ exports.postMoveDownField = (req, res) =>
 						),
 				),
 			),
+		),
+	);
+
+exports.postEditField = (req, res) =>
+	Field.findById(req.query.fieldId, field =>
+		new Field(
+			field.id,
+			field.name,
+			field.collectionId,
+			field.type,
+			field.order,
+			req.body,
+		).save(err =>
+			err
+				? console.error(err)
+				: res.redirect(
+						`/field/edit?collectionId=${field.collectionId}&fieldId=${field.id}`,
+				),
 		),
 	);
 
