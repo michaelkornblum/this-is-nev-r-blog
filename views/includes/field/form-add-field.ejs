@@ -1,44 +1,32 @@
-<form 
-        class="form-inline my-2 my-lg-2" 
-        action="/field/add" 
-        method="POST"
-    >
-        <legend>Create New Field</legend>
-        <input 
-            type="hidden" 
-            name="collectionId" 
-            value="<%= collection.id %>"
-        />
-        <label class="mr-2" for="field-name">
-            Field Name
-        </label>
-        <input 
-            class="form-control mr-3"
-            id="field-name" 
-            name="fieldName" 
-            type="text" 
-            placeholder="Ex: title, body, leadImage" 
-            required
-        />
-        <label class="mr-2" for="field-type">
-            Field Type
-        </label>
-        <select 
-            class="form-control mr-3" 
-            id="field-type"
-            name="fieldType"
-        >
-            <% for (let fieldType of fieldTypes) { %>
-                <option value="<%= fieldType %>"><%= capitalize(fieldType) %></option>
-            <% } %>
-        </select>
-        <button 
-            class="btn btn-success my-2" 
-            type="submit" 
-            <% if (disabled) { %>
-                disabled
-            <% } %>
-        >
-            Save
-        </button>
-    </form>
+<form class="form-inline my-2 my-lg-2" action="/field/add" method="POST">
+	<legend>Create New Field</legend>
+	<input type="hidden" name="collectionId" value="<%= collection.id %>" />
+	<label class="mr-2" for="field-name">
+		Field Name
+	</label>
+	<input
+		class="form-control mr-3"
+		id="field-name"
+		name="fieldName"
+		type="text"
+		placeholder="Ex: title, body, leadImage"
+		required
+	/>
+	<label class="mr-2" for="field-type">
+		Field Type
+	</label>
+    <input 
+        class="col-sm-1 custom-select mr-2"
+        id="field-type"
+        name="fieldType"
+        list="field-types"
+    />
+	<datalist id="field-types">
+		<% for (let fieldType of fieldTypes) { %>
+            <option value="<%= fieldType %>">
+        <% } %>
+	</datalist>
+	<button class="btn btn-success my-2" type="submit" <% if (disabled) { %>
+		disabled <% } %> > Save
+	</button>
+</form>
