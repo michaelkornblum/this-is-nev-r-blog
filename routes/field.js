@@ -7,7 +7,7 @@ const {
 	postAddField,
 	postMoveUpField,
 	postMoveDownField,
-	// postEditField,
+	postEditField,
 	postDeleteField,
 } = require('../controllers/field');
 
@@ -20,7 +20,7 @@ router.get('/field/delete', getDeleteField);
 router.post('/field/add', postAddField);
 router.post('/field/move-up', postMoveUpField);
 router.post('/field/move-down', postMoveDownField);
-// router.post("/collection/edit", postEditField);
+router.post('/field/edit/:fieldId', postEditField);
 router.post('/field/delete', postDeleteField);
 
 module.exports = router;
