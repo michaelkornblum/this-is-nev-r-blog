@@ -146,7 +146,7 @@ exports.postMoveDownField = (req, res) =>
 	);
 
 exports.postEditField = (req, res) =>
-	Field.findById(req.query.fieldId, field =>
+	Field.findById(req.params.fieldId, field =>
 		new Field(
 			field.id,
 			field.name,
@@ -158,7 +158,7 @@ exports.postEditField = (req, res) =>
 			err
 				? console.error(err)
 				: res.redirect(
-						`/field/edit?collectionId=${field.collectionId}&fieldId=${field.id}`,
+					`/fields?collectionId=${field.collectionId}`,
 				),
 		),
 	);
