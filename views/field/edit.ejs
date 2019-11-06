@@ -13,3 +13,7 @@
 		Back to <%= capitalize(collection.name) %> Fields
 	</a>
 </nav>
+
+<% if (field.type === 'string') { %>
+	<%- include('../includes/field/form-edit-string.ejs', { field } ) %>
+<% } %>
