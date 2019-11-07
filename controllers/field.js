@@ -5,7 +5,6 @@ const { capitalize } = require('../utils/string-operations');
 const fieldTypes = [
 	'boolean',
 	'date',
-	'dateTime',
 	'file',
 	'list',
 	'number',
