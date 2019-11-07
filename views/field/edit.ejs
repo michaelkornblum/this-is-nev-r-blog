@@ -14,6 +14,11 @@
 	</a>
 </nav>
 
-<% if (field.type === 'string') { %>
-	<%- include('../includes/field/form-edit-string.ejs', { field } ) %>
-<% } %>
+<% switch (field.type) {
+	case 'boolean' : %>
+		<%- include('../includes/field/form-edit-boolean.ejs', { field }) %>
+		<% break;
+	case 'string' : %>
+		<%- include('../includes/field/form-edit-string.ejs', { field } ) %>
+		<% break;	
+	} %>
