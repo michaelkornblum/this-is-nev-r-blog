@@ -14,11 +14,17 @@
 	</a>
 </nav>
 
-<% switch (field.type) {
+<% switch(field.type) {
 	case 'boolean' : %>
 		<%- include('../includes/field/form-edit-boolean.ejs', { field }) %>
 		<% break;
-	case 'string' : %>
-		<%- include('../includes/field/form-edit-string.ejs', { field } ) %>
-		<% break;	
-	} %>
+	case 'datetime' : %>
+		<%- include('../includes/field/form-edit-datetime.ejs', { field }) %>
+		<% break;
+	case 'hidden' : %>
+		<%- include('../includes/field/form-edit-hidden.ejs', { field }) %>
+		<% break; 
+	case 'number' : %>
+		<%- include('../includes/field/form-edit-number.ejs', { field }) %>
+		<% break;
+} %>

@@ -13,7 +13,7 @@
 				name="label"
 				id="field-label"
 				value="<%= field.config.label %>"
-				placeholder="ex: Title, Author"
+				placeholder="ex: Is Draft, On Sale"
 				required
 			/>
 		</div>
@@ -33,7 +33,7 @@
                 name="default"
                 id="field-default-true"
                 value="true"
-                <% if (field.config.default === "true") { %>
+                <% if (field.config.default === "true" || !field.config.default) { %>
                     checked
                 <% } %>
             />

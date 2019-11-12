@@ -1,0 +1,87 @@
+<form class="mt-4 ml-4" method="POST" action="/field/edit/<%= field.id %>">
+	<div class="form-group row">
+        <label 
+            class="col-sm-2 col-form-label" 
+            for="field-label"
+        >
+            Label
+        </label>
+		<div class="col-sm-4">
+			<input
+				class="form-control"
+				type="text"
+				name="label"
+				id="field-label"
+				value="<%= field.config.label %>"
+				placeholder="ex: Publication Date, Sale Dates"
+				required
+			/>
+		</div>
+    </div>
+
+    <div class="form-group-row">
+        <div class="custom-control custom-checkbox mb-2">
+            <input
+                class="custom-control-input"
+                type="checkbox"
+                id="field-uses-local-time"
+                name="useLocalTime"
+                <% if (field.config.useLocalTime) { %>
+                    checked
+                <% } %>
+            >
+            <label 
+                class="custom-control-label"
+                for="field-uses-local-time"
+            >
+                Use Local Time
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group-row">
+        <div class="custom-control custom-checkbox mb-2">
+            <input
+                class="custom-control-input"
+                type="checkbox"
+                id="field-uses-expiration"
+                name="useExpiration"
+                <% if (field.config.useExpiration) { %>
+                    checked
+                <% } %>
+            >
+            <label 
+                class="custom-control-label"
+                for="field-uses-expiration"
+            >
+                Use Expiration Time
+            </label>
+        </div>
+    </div>
+    
+    <div class="form-group-row">
+        <div class="custom-control custom-checkbox">
+            <input
+                class="custom-control-input"
+                type="checkbox"
+                id="field-uses-current-time"
+                name="useCurrentTime"
+                <% if (field.config.useCurrentTime) { %>
+                    checked
+                <% } %>
+            >
+            <label 
+                class="custom-control-label"
+                for="field-uses-current-time"
+            >
+                Use Current Time as Default
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <button class="btn btn-success ml-3 mt-3" type="submit">
+            save &amp; exit
+        </button>
+    </div>
+</form>

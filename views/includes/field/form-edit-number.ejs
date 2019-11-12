@@ -1,0 +1,68 @@
+<form class="mt-4 ml-4" method="POST" action="/field/edit/<%= field.id %>">
+    <div class="form-group row">
+		<label class="col-sm-2 col-form-label" for="field-label">Label</label>
+		<div class="col-sm-4">
+			<input
+				class="form-control"
+				type="text"
+				name="label"
+				id="field-label"
+				value="<%= field.config.label %>"
+				placeholder="Ex: price"
+				required
+			/>
+		</div>
+    </div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label" for="field-min">Min Value</label>
+		<div class="col-sm-4">
+			<input
+				class="form-control"
+				type="number"
+				name="minValue"
+				id="field-min"
+				value="<%= field.config.minValue %>"
+				placeholder="Minimum numerical value"
+			/>
+		</div>
+    </div>
+    
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="field-max">
+            Max Value
+        </label>
+        <div class="col-sm-4">
+            <input 
+                class="form-control"
+                type="number"
+                name="maxValue"
+                id="field-max"
+                value="<%= field.config.maxValue %>"
+                placeholder="Maximum numerical value"
+            />
+        </div>
+    </div>
+
+	<div class="form-group row">
+		<label class="col-sm-2 col-form-label" for="field-step">
+			Step
+        </label>
+        <div class="col-sm-4">
+            <input 
+                class="form-control"
+                type="number"
+                name="step"
+                id="field-step"
+                value="<%= field.config.step %>"
+                placeholder="Whole number or decimal"
+            />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <button class="btn btn-success ml-3 mt-3" type="submit">
+            save &amp; exit
+        </button>
+    </div>
+</form>

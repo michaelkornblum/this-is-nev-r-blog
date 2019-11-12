@@ -1,0 +1,23 @@
+<form class="mt-4 ml-4" method="POST" action="/field/edit/<%= field.id %>">    
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="field-value">
+            Value
+        </label>
+        <div class="col-sm-4">
+            <input 
+                class="form-control"
+                type="text"
+                name="fieldValue"
+                id="field-value"
+                value="<%= field.config.value %>"
+                placeholder="text or numerical value"
+            />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <button class="btn btn-success ml-3 mt-3" type="submit">
+            save &amp; exit
+        </button>
+    </div>
+</form>
