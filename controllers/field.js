@@ -5,11 +5,11 @@ const { capitalize } = require('../utils/string-operations');
 const fieldTypes = [
 	'boolean',
 	'datetime',
-	'file',
+	// 'file',
 	'hidden',
-	'list',
+	// 'list',
 	'number',
-	'option',
+	// 'option',
 	'string',
 	'text',
 ];
@@ -30,15 +30,19 @@ exports.getFieldIndex = (req, res) =>
 	);
 
 exports.getEditField = (req, res) =>
-	Collection.findById(req.query.collectionId, collection =>
-		Field.findById(req.query.fieldId, field =>
-			res.render('field/edit', {
-				field,
-				collection,
-				capitalize
-			}),
-		),
-	);
+	Collection.fetchAll( collections =>
+		Collection.findById(req.query.collectionId, collection =>
+			Field.findById(req.query.fieldId, field =>
+				res.render('field/edit', {
+					field,
+					collections,
+					collection,
+					capitalize
+				}),
+			),
+		)
+	)
+	
 
 exports.getDeleteField = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
