@@ -29,6 +29,7 @@
 		<% break;
 	case 'options' : %>
 		<%- include('../includes/field/form-edit-options.ejs', { field }) %>
-	<% default : %>
+		<% break;
+	default : %>
 		<%- include('../includes/field/form-edit-string.ejs', { field }) %>
 <% } %>
