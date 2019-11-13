@@ -27,4 +27,8 @@
 	case 'number' : %>
 		<%- include('../includes/field/form-edit-number.ejs', { field }) %>
 		<% break;
-} %>
+	case 'options' : %>
+		<%- include('../includes/field/form-edit-options.ejs', { field }) %>
+	<% default : %>
+		<%- include('../includes/field/form-edit-string.ejs', { field }) %>
+<% } %>
