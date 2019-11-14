@@ -16,7 +16,6 @@ Nev-R-Blog does not seek to reinvent the wheel. When completed, it may leverage 
 
 -   NodeJS
 -   Express
--   ejs
 -   MongoDB or NEDB
 -   React or Vue
 -   Gatsby or Gridsome
