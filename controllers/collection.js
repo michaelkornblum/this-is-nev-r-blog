@@ -52,6 +52,4 @@ exports.postDeleteCollection = (req, res) =>
                 err ? console.error(err) : res.redirect("/")
             )
     );
-// Collection.delete(req.body.collectionId, err =>
-//     err ? console.error(err) : res.redirect("/")
-// );
+
