@@ -1,0 +1,57 @@
+<%- include('../includes/head.ejs') %>
+
+<nav
+    class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
+>
+    <h1 class="navbar-brand"><%= collection.name %> entries</h1>
+    <a href="/" class="nav-link">Back to Collections</a>
+</nav>
+
+<!-- Show modal when deleting entries -->
+<% if (isDeleting) { %> 
+    <%- include('../includes/entry/modal-delete-.ejs', {
+        collectionId: collection.id, 
+        entryId
+    }) %>
+<% } %>
+
+<div class="container-fluid">
+    <!-- Show message when there are no collections-->
+    <% if (!entries.length) { %>
+        <h2>No Entries on File</h2>
+        <p>Click the button below to create a new entry.</p>
+    <% } else { %>
+        <h2>Entry List</h2>
+    <% } %>
+
+    <!-- Link to add field -->
+    <a class="btn btn-success" href="/entry/add">add entry</a>
+
+    <!-- Show fields belonging to collection when they exist -->
+    <% if (entries.length) { %>
+        <ul class="list-group list-group-flush">
+            <% for (let emtry of entries) { %>
+                <li class="list-group-item d-flex justify-content-between align-items-center"><%= entry.name %>
+                    <div class="btn-group" role="group">
+
+                        <!-- Link to Edit Field -->
+                        <%- include('../includes/list-item-button.ejs', {
+                            btnColor: 'warning',
+                            btnLabel: 'edit',
+                            btnLink: `/entry/edit?collectionId=${collection.id}&entryId=${entry.id}`,
+                            isDisabled: isDeleting
+                        }) %>
+
+                        <!-- Link to Delete field -->
+                        <%- include('../includes/list-item-button.ejs', {
+                            btnColor: 'danger',
+                            btnLabel: 'delete',
+                            btnLink: `/entry/delete?collectionId=${collection.id}&entryId=${entry.id}`,
+                            isDisabled: isDeleting
+                        }) %>
+                    </div>
+                </li>
+            <% } %>
+        </ul>
+    <% } %>
+</div>
