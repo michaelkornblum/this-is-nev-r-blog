@@ -1,17 +1,19 @@
-const express = require("express");
+const express = require('express');
 
 const {
-    getEntryIndex,
-//     getEditEntry,
-//     getDeleteEntry,
-//     postAddEntry,
-//     postEditEntry,
-//     postDeleteEntry
-} = require("../controllers/entry");
+	getEntryIndex,
+	getAddEntry,
+	//     getEditEntry,
+	//     getDeleteEntry,
+	//     postAddEntry,
+	//     postEditEntry,
+	//     postDeleteEntry
+} = require('../controllers/entry');
 
 const router = express.Router();
 
-router.get("/entries", getEntryIndex);
+router.get('/entries', getEntryIndex);
+router.get('/entry/add', getAddEntry);
 // router.get("/collection/edit", getEditEntry);
 // router.get("/collection/delete", getDeleteEntry);
 
