@@ -1,28 +1,32 @@
-<form 
-    class="form-inline mb-3" 
+<form
     action="/collection/add" 
     method="POST"
 >
-    <legend>Create New Collection</legend>
-    <label class="mr-2" for="collection-name">Collection Name:</label>
-    <input
-        class="form-control"
-        id="collection-name"
-        name="collectionName"
-        type="text"
-        placeholder="Ex: Author, Editor, Post"
-        required
-        <% if (isEditing || isDeleting) { %>
-            disabled
-        <% } %>
-    />
-    <button 
-        class="btn btn-success ml-2" 
+    <legend>New Collection</legend>
+    <div class="form-group">
+        <label class="form-label" for="collection-name">Collection Name:</label>
+        <input
+            class="form-control"
+            id="collection-name"
+            name="collectionName"
+            type="text"
+            placeholder="Ex: author, editor, post"
+            required
+            <% if (isEditing || isDeleting) { %>
+                disabled
+            <% } %>
+        />
+    </div>
+        
+    <div>
+        <button 
+        class="btn btn-success mt-auto" 
         type="submit" 
         <% if (isEditing || isDeleting) { %>
             disabled
         <% } %>
-    >
-        Save
-    </button>
+        >
+            Save
+        </button>
+    </div>   
 </form>
