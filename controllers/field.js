@@ -36,6 +36,7 @@ exports.getEditField = (req, res) =>
 		Collection.findById(req.query.collectionId, collection =>
 			Field.findById(req.query.fieldId, field =>
 				res.render('field/edit', {
+					pageTitle: 'Edit Field',
 					field,
 					collections,
 					collection,

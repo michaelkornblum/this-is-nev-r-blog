@@ -1,0 +1,61 @@
+<%- include('../includes/head.ejs') %>
+
+<nav
+    class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
+>
+    <% if (!isEditing) { %>
+        <h1 class="navbar-brand">New <%= collection.name %> Entry</h1>
+    <% } %>
+    <a
+        class="nav-link"
+        href="/entries?collectionId=<%= collection.id %>"
+    >
+        Back to <%= collection.name %> Entries
+    </a>
+</nav>
+
+<% if (fields.length) { %>
+    <form 
+        class="class="mt-4 ml-4"" 
+        action="/entry/add/<%= collection.id %>" 
+        method="POST"
+    >
+        <legend>Create a new Entry</legend>
+        <div class="form-group row">
+            <label class="ml-4 col-form-label" for="entry-title">Title</label>
+            <div class="col-sm-4">
+                <input
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    id="entry-title"
+                    placeholder="Entry Title"
+                    required
+                />
+            </div>
+        </div>
+        <% for (let field of fields) {
+            if (field.type === 'boolean') { %>
+                <div class="form-group-row">
+                    <input
+                        class="ml-2"
+                        type="checkbox"
+                        id="<%= field.name %>"
+                        name="<%= field.name %>"
+                        <% if (field.value === "true" || field.config.default === "true") { %>
+                            checked
+                        <% } %>
+                        value="<%= field.value %>"
+                    >
+                    <label 
+                        for="<%= field.name %>"
+                    >
+                        <%= field.config.label %>
+                    </label>
+                </div>
+            <% } 
+        } %>
+    </form>
+<% } else { %>
+
+<% } %>

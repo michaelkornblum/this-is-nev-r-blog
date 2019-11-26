@@ -25,7 +25,12 @@
     <% } %>
 
     <!-- Link to add field -->
-    <a class="btn btn-success" href="/entry/add">add entry</a>
+    <a 
+        class="btn btn-success" 
+        href="/entry/add?collectionId=<%= collection.id %>"
+    >
+        add entry
+    </a>
 
     <!-- Show fields belonging to collection when they exist -->
     <% if (entries.length) { %>

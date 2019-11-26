@@ -1,11 +1,13 @@
 <%- include('../includes/head.ejs') %>
 
-<nav
-    class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
->
-    <h1 class="navbar-brand"><%= collection.name %> fields</h1>
-    <a href="/" class="nav-link">Back to Collections</a>
-</nav>
+<ul class="breadcrumb bg-light">
+    <li class="breadcrumb-item">
+        <a href="/" class="breadcrumb-link">collections</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <%= collection.name %> fields
+    </li>
+</ul>
 
 <!-- Show modal when deleting collection -->
 <% if (isDeleting) { %> 
@@ -15,7 +17,7 @@
     }) %>
 <% } %>
 
-<div class="container-fluid">
+<div class="container">
     <!-- Show message when there are no collections-->
     <% if (!fields.length) { %>
     <h2>No Fields on File</h2>
@@ -75,3 +77,5 @@
         </ul>
     <% } %>
 </div>
+
+<% include('../includes/foot.ejs') %>
