@@ -94,24 +94,22 @@ exports.getAddedField = (req, res) =>
 	)
 
 exports.getDeletedField = (req, res) =>
-	Field.findByName(req.query.fieldName, field =>
-		Collection.findById(req.query.collectionId, collection =>
-			Field.findByCollectionId(collection.id, fields =>
-				res.render('field/index', {
-					pageTitle: 'Fields',
-					fields: fields.sort((a, b) => a.order - b.order),
-					collection,
-					capitalize,
-					fieldTypes,
-					fieldId: null,
-					fieldName: req.query.fieldName,
-					isDeleting: false,
-					wasAdded: false,
-					wasEdited: false,
-					wasDeleted: true
-				})
-			)
-		)
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByCollectionId(collection.id, fields =>
+			res.render('field/index', {
+				pageTitle: 'Fields',
+				fields: fields.sort((a, b) => a.order - b.order),
+				collection,
+				capitalize,
+				fieldTypes,
+				fieldId: null,
+				fieldName: req.query.fieldName,
+				isDeleting: false,
+				wasAdded: false,
+				wasEdited: false,
+				wasDeleted: true
+			})
+	)
 )
 	
 
