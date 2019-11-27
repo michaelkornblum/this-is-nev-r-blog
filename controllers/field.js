@@ -26,7 +26,11 @@ exports.getFieldIndex = (req, res) =>
 				capitalize,
 				fieldTypes,
 				fieldId: null,
+				fieldName: null,
 				isDeleting: false,
+				wasAdded: false,
+				wasEdited: false,
+				wasDeleted: false
 			}),
 		),
 	);
@@ -58,11 +62,58 @@ exports.getDeleteField = (req, res) =>
 					capitalize,
 					fieldTypes,
 					fieldId: field.id,
+					fieldName: field.name,
 					isDeleting: true,
+					wasAdded: false,
+					wasEdited: false,
+					wasDeleted: false
 				}),
 			),
 		),
 	);
+
+exports.getAddedField = (req, res) =>
+	Field.findByName(req.query.fieldName, field =>
+		Collection.findById(field.collectionId, collection =>
+			Field.findByCollectionId(collection.id, fields =>
+				res.render('field/index', {
+					pageTitle: 'Fields',
+					fields: fields.sort((a, b) => a.order - b.order),
+					collection,
+					capitalize,
+					fieldTypes,
+					fieldId: null,
+					fieldName: field.name,
+					isDeleting: false,
+					wasAdded: true,
+					wasEdited: false,
+					wasDeleted: false
+				})
+			)
+		)
+	)
+
+exports.getDeletedField = (req, res) =>
+	Field.findByName(req.query.fieldName, field =>
+		Collection.findById(req.query.collectionId, collection =>
+			Field.findByCollectionId(collection.id, fields =>
+				res.render('field/index', {
+					pageTitle: 'Fields',
+					fields: fields.sort((a, b) => a.order - b.order),
+					collection,
+					capitalize,
+					fieldTypes,
+					fieldId: null,
+					fieldName: req.query.fieldName,
+					isDeleting: false,
+					wasAdded: false,
+					wasEdited: false,
+					wasDeleted: true
+				})
+			)
+		)
+)
+	
 
 exports.postAddField = (req, res) =>
 	Field.findByCollectionId(req.body.collectionId, fields =>
@@ -76,7 +127,7 @@ exports.postAddField = (req, res) =>
 		).save(err =>
 			err
 				? console.error(err)
-				: res.redirect(`/fields?collectionId=${req.body.collectionId}`),
+				: res.redirect(`/field/added?fieldName=${req.body.fieldName}`),
 		),
 	);
 
@@ -186,7 +237,7 @@ exports.postDeleteField = (req, res) =>
 										err
 											? console.error(err)
 											: res.redirect(
-													`/fields?collectionId=${req.body.collectionId}`,
+													`/field/deleted?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}`,
 											),
 									);
 								}
@@ -198,7 +249,7 @@ exports.postDeleteField = (req, res) =>
 						err
 							? console.error(err)
 							: res.redirect(
-									`/fields?collectionId=${req.body.collectionId}`,
+									`/field/deleted?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}`,
 							),
 					);
 				}

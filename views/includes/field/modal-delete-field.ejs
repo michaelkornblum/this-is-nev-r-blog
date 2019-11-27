@@ -1,20 +1,20 @@
+<div class="modal-backdrop show"></div>
 <div class="modal" style="display:block" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Warning!!!</h2>
+            <div class="modal-header bg-danger text-light">
+                <h2 class="modal-title">Danger</h2>
             </div>
             <div class="modal-body">
                 <p>
-                    You are about to delete a field. When you delete a
-                    field all items that use that field will be deleted too.
+                    You are about to delete a the <%= fieldName %> field. When you delete a field all items that use that field will be deleted too.
                 </p>
                 <p>
                     Do you really want to do this?
                 </p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-secondary" href="/fields?collectionId=<%= collection.id %>">
+                <a class="btn btn-secondary" href="/fields?collectionId=<%= collectionId %>">
                     Cancel
                 </a>
                 <form action="/field/delete" method="POST">
@@ -22,6 +22,11 @@
                         type="hidden" 
                         name="fieldId"
                         value="<%= fieldId %>"
+                    >
+                    <input
+                        type="hidden"
+                        name="fieldName"
+                        value="<%= fieldName %>"
                     >
                     <input
                         type="hidden"

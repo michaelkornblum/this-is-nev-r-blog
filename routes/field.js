@@ -4,6 +4,10 @@ const {
 	getFieldIndex,
 	getEditField,
 	getDeleteField,
+	getAddedField,
+	// getEditedField,
+	getDeletedField,
+
 	postAddField,
 	postMoveUpField,
 	postMoveDownField,
@@ -16,6 +20,9 @@ const router = express.Router();
 router.get('/fields', getFieldIndex);
 router.get('/field/edit', getEditField);
 router.get('/field/delete', getDeleteField);
+router.get('/field/added', getAddedField);
+// router.get('/field/edited', getEditedField);
+router.get('/field/deleted', getDeletedField);
 
 router.post('/field/add', postAddField);
 router.post('/field/move-up', postMoveUpField);

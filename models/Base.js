@@ -40,6 +40,13 @@ module.exports = fileName => {
             });
         }
 
+        static findByName(name, callBack) {
+            readDataFile(dataFile, arr => {
+                const item = arr.find(item => item.name === name);
+                callBack(item);
+            });
+        }
+
         static delete(id, callBack) {
             readDataFile(dataFile, arr => {
                 const newArr = arr.filter(item => item.id !== id);

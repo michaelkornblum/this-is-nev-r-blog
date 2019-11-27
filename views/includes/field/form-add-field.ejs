@@ -1,12 +1,12 @@
-<form class="form-inline mb-3" action="/field/add" method="POST">
-	<legend>Create New Field</legend>
+<form action="/field/add" method="POST">
+	<legend>New Field</legend>
 	<input type="hidden" name="collectionId" value="<%= collection.id %>" />
 	<div class="form-group">
-		<label class="form-label mr-2" for="field-name">
+		<label class="field-name" for="field-name">
 			Field Name
 		</label>
 		<input
-			class="form-control mr-3"
+			class="form-control"
 			id="field-name"
 			name="fieldName"
 			type="text"
@@ -16,11 +16,11 @@
 	</div>
 
 	<div class="form-group">
-		<label class="form-label mr-2" for="field-type">
+		<label class="form-label for="field-type">
 			Field Type
 		</label>
 		<input 
-			class="mr-2"
+			class="form-control"
 			id="field-type"
 			name="fieldType"
 			list="field-types"
@@ -32,10 +32,14 @@
 		</datalist>
 	</div>
 	
-	<div class="form-group">
-		<button class="btn btn-success" type="submit" <% if (disabled) { %>
-			disabled <% } %> > Save
+	<div>
+		<button 
+			class="btn btn-success mt-auto" 
+			type="submit" 
+			<% if (disabled) { %>
+				disabled 
+			<% } %> > 
+				Save & Configure
 		</button>
 	</div>
-	
 </form>
