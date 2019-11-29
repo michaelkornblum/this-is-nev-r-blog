@@ -12,6 +12,9 @@
 			type="text"
 			placeholder="Ex: title, body, leadImage"
 			required
+			<% if (isEditing || isDeleting) { %>
+                disabled
+            <% } %>
 		/>
 	</div>
 
@@ -24,6 +27,9 @@
 			id="field-type"
 			name="fieldType"
 			list="field-types"
+			<% if (isEditing || isDeleting) { %>
+                disabled
+            <% } %>
 		/>
 		<datalist id="field-types">
 			<% for (let fieldType of fieldTypes) { %>
@@ -36,9 +42,9 @@
 		<button 
 			class="btn btn-success mt-auto" 
 			type="submit" 
-			<% if (disabled) { %>
-				disabled 
-			<% } %> > 
+			<% if (isEditing || isDeleting) { %>
+                disabled
+            <% } %>>
 				Save & Configure
 		</button>
 	</div>

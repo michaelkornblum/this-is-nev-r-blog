@@ -28,8 +28,7 @@
             <%- include('../includes/field/form-add-field.ejs', {
                 fieldTypes,
                 capitalize,
-                collectionId: collection.id,
-                disabled: isDeleting === 'true'}) %>
+                collectionId: collection.id }) %>
         </div>
 
         <!-- Main Content -->
@@ -95,7 +94,7 @@
                                         collectionId: collection.id,
                                         fieldId: field.id,
                                         direction: 'up',
-                                        isDisabled: field.order === 1 || isDeleting
+                                        isDisabled: field.order === 1 || isDeleting || isEditing
                                     }) %>
             
                                     <!-- Move field down one place -->
@@ -103,7 +102,7 @@
                                         collectionId: collection.id,
                                         fieldId: field.id,
                                         direction: 'down',
-                                        isDisabled: field.order === fields.length || isDeleting
+                                        isDisabled: field.order === fields.length || isDeleting || isEditing
                                     }) %>
             
                                     <!-- Link to Edit Field -->
@@ -111,7 +110,7 @@
                                         btnColor: 'warning',
                                         btnLabel: 'edit',
                                         btnLink: `/field/edit?collectionId=${collection.id}&fieldId=${field.id}`,
-                                        isDisabled: isDeleting
+                                        isDisabled: isDeleting || isEditing
                                     }) %>
             
                                     <!-- Link to delete field -->
@@ -119,7 +118,7 @@
                                         btnColor: 'danger',
                                         btnLabel: 'delete',
                                         btnLink: `/field/delete?collectionId=${collection.id}&fieldId=${field.id}`,
-                                        isDisabled: isDeleting
+                                        isDisabled: isDeleting || isEditing
                                     }) %>
                                 </div>
                             <% } %>
