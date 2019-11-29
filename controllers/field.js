@@ -27,6 +27,7 @@ exports.getFieldIndex = (req, res) =>
 				fieldTypes,
 				fieldId: null,
 				fieldName: null,
+				isEditing: false,
 				isDeleting: false,
 				wasAdded: false,
 				wasEdited: false,
@@ -36,19 +37,44 @@ exports.getFieldIndex = (req, res) =>
 	);
 
 exports.getEditField = (req, res) =>
-	Collection.fetchAll( collections =>
-		Collection.findById(req.query.collectionId, collection =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByCollectionId(collection.id, fields =>
 			Field.findById(req.query.fieldId, field =>
-				res.render('field/edit', {
-					pageTitle: 'Edit Field',
-					field,
-					collections,
+				res.render('field/index', {
+					pageTitle: 'Fields',
+					fields: fields.sort((a, b) => a.order - b.order),
 					collection,
-					capitalize
+					capitalize,
+					fieldTypes,
+					fieldId: field.id,
+					fieldName: field.name,
+					isEditing: true,
+					isDeleting: false,
+					wasAdded: false,
+					wasEdited: false,
+					wasDeleted: false
 				}),
-			),
-		)
-	)
+			)
+			
+		),
+	);
+
+	
+
+// exports.getEditField = (req, res) =>
+// 	Collection.fetchAll( collections =>
+// 		Collection.findById(req.query.collectionId, collection =>
+// 			Field.findById(req.query.fieldId, field =>
+// 				res.render('field/index', {
+// 					pageTitle: 'Edit Field',
+// 					field,
+// 					collections,
+// 					collection,
+// 					capitalize
+// 				}),
+// 			),
+// 		)
+// 	)
 	
 
 exports.getDeleteField = (req, res) =>
@@ -63,6 +89,7 @@ exports.getDeleteField = (req, res) =>
 					fieldTypes,
 					fieldId: field.id,
 					fieldName: field.name,
+					isEditing: false,
 					isDeleting: true,
 					wasAdded: false,
 					wasEdited: false,
@@ -84,6 +111,7 @@ exports.getAddedField = (req, res) =>
 					fieldTypes,
 					fieldId: null,
 					fieldName: field.name,
+					isEditing: false,
 					isDeleting: false,
 					wasAdded: true,
 					wasEdited: false,
@@ -104,6 +132,7 @@ exports.getDeletedField = (req, res) =>
 				fieldTypes,
 				fieldId: null,
 				fieldName: req.query.fieldName,
+				isEditing: false,
 				isDeleting: false,
 				wasAdded: false,
 				wasEdited: false,

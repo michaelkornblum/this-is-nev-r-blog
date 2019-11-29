@@ -1,0 +1,58 @@
+<form 
+    class="form-inline" 
+    action="/field/edit/" 
+    method="POST"
+>
+    <input 
+        type="hidden" 
+        name="fieldId" 
+        value="<%= field.id %>" 
+    />
+
+    <input
+        type="hidden"
+        name="collectionId"
+        value="<%= collection.id %>"
+    />
+
+    <input type="hidden" name="fieldOrder" value="<%= field.order %>">
+
+    <label for="field-name" class="mr-2">
+        Field Name
+    </label>
+    <input 
+        type="text" 
+        class="form-control mr-2" 
+        id="field-name"
+        name="fieldName"
+        placeholder="New field name" 
+        value="<%= field.name %>"
+        required 
+    />
+
+    <label class="mr-2" for="field-type">
+        Field Type
+    </label>
+    <input 
+        class="form-control mr-2"
+        id="field-type"
+        name="fieldType"
+        value="<%= field.type %>"
+        list="field-types"
+    />
+    <datalist id="field-types">
+        <% for (let fieldType of fieldTypes) { %>
+            <option value="<%= field.type %>">
+        <% } %>
+    </datalist>
+
+    <div class="btn-group my-3">
+        <button 
+        class="btn btn-success"
+        type="submit"
+        >
+            save
+        </button>
+        <a href="../../fields?collectionId=<%= collection.id %>" class="btn btn-secondary mx-1">cancel</a>
+    </div>
+</form>

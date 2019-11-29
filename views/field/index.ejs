@@ -1,5 +1,6 @@
 <%- include('../includes/head.ejs') %>
 
+<!-- Breadcrumb Navigation -->
 <ul class="breadcrumb">
     <li class="breadcrumb-item">
         <a href="/" class="breadcrumb-link">collections</a>
@@ -33,78 +34,95 @@
 
         <!-- Main Content -->
         <div class="col-md-8 col-lg-9 col-xl-10">
-            <!-- Notify when field is added -->
-            <% if (wasAdded) { %>
-                <div class="alert alert-success alert-dismissable fade show" role="alert">
-                    Field <%= fieldName %> has been added.
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <% } %>
-
-            <!-- Notify when field is edited -->
-            <% if (wasEdited) { %>
-                <div class="alert alert-info alert-dismissable fade show" role="alert">
-                    Field <%= fieldName %> was edited.
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <% } %>
-
-            <!-- Notify when field is deleted -->
-            <% if (wasDeleted) { %>
-                <div class="alert alert-danger alert-dismissable fade show" role="alert">
-                    Field <%= fieldName %> was deleted.
-                    <button type="button" class="close" data-dismiss="alert">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <% } %>
-
+            
             <!-- Show fields when they exist -->
             <% if (fields.length) { %>
                 <h1 class="mt-2">Field List</h1>
+
+                <!-- Notification Area-->
+                <!-- Notify when field is added -->
+                <% if (wasAdded) { %>
+                    <div class="alert alert-success alert-dismissable fade show" role="alert">
+                        Field <%= fieldName %> has been added.
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+
+                <!-- Notify when field is edited -->
+                <% if (wasEdited) { %>
+                    <div class="alert alert-info alert-dismissable fade show" role="alert">
+                        Field <%= fieldName %> was edited.
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+
+                <!-- Notify when field is deleted -->
+                <% if (wasDeleted) { %>
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        Field <%= fieldName %> was deleted.
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+                
+                <!-- Field List -->
                 <ul class="list-group list-group-flush">
                     <% for (let field of fields) { %>
-                        <li class="list-group-item d-flex justify-content-between align-items-center"><%= field.name %>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <!-- Show edit form when editing mode is on and field id matches-->
+                            <% if (isEditing && fieldId === field.id) { %>
+                                <%- include('../includes/field/form-edit-field.ejs', {
+                                    field,
+                                    collectionId: collection.id
+                                }) %>
+                            <% } else { %>
+                                <!-- Show field name -->
+                                <%= field.name %>
+                            <% } %>
 
                             <!-- Control Buttons -->
-                            <div class="btn-group" role="group">
+                            <!-- Show control buttons for field when interface is not in edit mode, or if interface is in edit mode, but the field id does not match the fieldId variable -->
+                            <% if(!isEditing || fieldId !== field.id) { %>
+                                <div class="btn-group" role="group">
 
-                                <!-- Move field up one place -->
-                                <%- include('../includes/field/form-move-field.ejs', {
-                                    collectionId: collection.id,
-                                    fieldId: field.id,
-                                    direction: 'up',
-                                    isDisabled: field.order === 1 || isDeleting
-                                }) %>
-        
-                                <!-- Move field down one place -->
-                                <%- include('../includes/field/form-move-field.ejs', {
-                                    collectionId: collection.id,
-                                    fieldId: field.id,
-                                    direction: 'down',
-                                    isDisabled: field.order === fields.length || isDeleting
-                                }) %>
-        
-                                <!-- Link to Edit Field -->
-                                <%- include('../includes/list-item-button.ejs', {
-                                    btnColor: 'warning',
-                                    btnLabel: 'edit',
-                                    btnLink: `/field/edit?collectionId=${collection.id}&fieldId=${field.id}`,
-                                    isDisabled: isDeleting
-                                }) %>
-        
-                                <!-- Link to delete field -->
-                                <%- include('../includes/list-item-button.ejs', {
-                                    btnColor: 'danger',
-                                    btnLabel: 'delete',
-                                    btnLink: `/field/delete?collectionId=${collection.id}&fieldId=${field.id}`,
-                                    isDisabled: isDeleting
-                                }) %>
-                            </div>
+                                    <!-- Move field up one place -->
+                                    <%- include('../includes/field/form-move-field.ejs', {
+                                        collectionId: collection.id,
+                                        fieldId: field.id,
+                                        direction: 'up',
+                                        isDisabled: field.order === 1 || isDeleting
+                                    }) %>
+            
+                                    <!-- Move field down one place -->
+                                    <%- include('../includes/field/form-move-field.ejs', {
+                                        collectionId: collection.id,
+                                        fieldId: field.id,
+                                        direction: 'down',
+                                        isDisabled: field.order === fields.length || isDeleting
+                                    }) %>
+            
+                                    <!-- Link to Edit Field -->
+                                    <%- include('../includes/list-item-button.ejs', {
+                                        btnColor: 'warning',
+                                        btnLabel: 'edit',
+                                        btnLink: `/field/edit?collectionId=${collection.id}&fieldId=${field.id}`,
+                                        isDisabled: isDeleting
+                                    }) %>
+            
+                                    <!-- Link to delete field -->
+                                    <%- include('../includes/list-item-button.ejs', {
+                                        btnColor: 'danger',
+                                        btnLabel: 'delete',
+                                        btnLink: `/field/delete?collectionId=${collection.id}&fieldId=${field.id}`,
+                                        isDisabled: isDeleting
+                                    }) %>
+                                </div>
+                            <% } %>
                         </li>
                     <% } %>
                 </ul>
