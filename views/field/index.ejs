@@ -19,6 +19,15 @@
     }) %>
 <% } %>
 
+<!-- Show modal when about to edit field -->
+<% if (willEdit) { %>
+    <%- include('../includes/field/modal-will-edit-field.ejs', {
+        collectionId: collection.id,
+        fieldName,
+        fieldId
+    }) %>
+<% } %>
+
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar Content -->
@@ -68,11 +77,22 @@
                         </button>
                     </div>
                 <% } %>
+
+                <!-- Notify when field configuration has changed -->
+                <% if (wasConfigured) { %>
+                    <div class="alert alert-info alert-dismissable fade show" role="alert">
+                        The configuration settings for <%= fieldName %> were changed.
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+
                 
                 <!-- Field List -->
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush container-fluid">
                     <% for (let field of fields) { %>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <li class="list-group-item d-flex justify-content-md-between align-items-center row">
                             <!-- Show edit form when editing mode is on and field id matches-->
                             <% if (isEditing && fieldId === field.id) { %>
                                 <%- include('../includes/field/form-edit-field.ejs', {
@@ -81,13 +101,16 @@
                                 }) %>
                             <% } else { %>
                                 <!-- Show field name -->
-                                <%= field.name %>
+                                <div class="col-sm-2 my-1">
+                                    <%= field.name %>
+                                </div>
+                                
                             <% } %>
 
                             <!-- Control Buttons -->
                             <!-- Show control buttons for field when interface is not in edit mode, or if interface is in edit mode, but the field id does not match the fieldId variable -->
                             <% if(!isEditing || fieldId !== field.id) { %>
-                                <div class="btn-group" role="group">
+                                <div class="btn-group col-sm-10 justify-content-lg-end my-2" role="group">
 
                                     <!-- Move field up one place -->
                                     <%- include('../includes/field/form-move-field.ejs', {
@@ -109,7 +132,15 @@
                                     <%- include('../includes/list-item-button.ejs', {
                                         btnColor: 'warning',
                                         btnLabel: 'edit',
-                                        btnLink: `/field/edit?collectionId=${collection.id}&fieldId=${field.id}`,
+                                        btnLink: `/field/will-edit?collectionId=${collection.id}&fieldId=${field.id}`,
+                                        isDisabled: isDeleting || isEditing
+                                    }) %>
+
+                                    <!-- Link to Edit Field -->
+                                    <%- include('../includes/list-item-button.ejs', {
+                                        btnColor: 'primary',
+                                        btnLabel: 'configure',
+                                        btnLink: `/field/config?fieldName=${field.name}&collectionId=${collection.id}&mode=default`,
                                         isDisabled: isDeleting || isEditing
                                     }) %>
             

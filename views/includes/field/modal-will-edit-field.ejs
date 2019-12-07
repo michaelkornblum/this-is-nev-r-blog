@@ -1,0 +1,24 @@
+<div class="modal-backdrop show"></div>
+<div class="modal" style="display:block" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-light">
+                <h2 class="modal-title">Warning</h2>
+            </div>
+            <div class="modal-body">
+                <p>
+                    You are about to edit the <%= fieldName %> field. When you edit a field, all of its configuration settings are lost. Additionally, all the data contained in fields that are associated with entries will be lost. 
+                </p>
+                <p>
+                    If you only want to change a few settings in this field without data loss, cancel out of this dialogue and click the configure button instead.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary" href="/fields?collectionId=<%= collectionId %>">
+                    Cancel
+                </a>
+                <a class="btn btn-warning" href="/field/edit?collectionId=<%= collectionId %>&fieldId=<%= fieldId %>">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>

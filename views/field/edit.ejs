@@ -1,35 +1,46 @@
 <%- include('../includes/head.ejs') %>
 
-<nav
-	class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
->
-	<h1 class="navbar-brand">
-		Edit Field: <b><%= field.name %>(<%= field.type %>)</b>
-	</h1>
-	<a 
-		class="nav-link" 
-		href="/fields?collectionId=<%= collection.id %>" 
-	>
-		Back to <%= capitalize(collection.name) %> Fields
-	</a>
-</nav>
+<!-- Breadcrumb Navigation -->
+<ul class="breadcrumb">
+	<li class="breadcrumb-item">
+		<a href="/" class="breadcrumb-link">collections</a>
+	</li>
+	<li class="breadcrumb-item">
+		<a href="../fields?collectionId=<%= collection.id  %>">
+			<%= collection.name %> fields
+		</a>
+	</li>
+	<li class="breadcrumb-item">
+		<%= field.name %> settings
+	</li>
+</ul>
 
-<% switch(field.type) {
-	case 'boolean' : %>
-		<%- include('../includes/field/form-edit-boolean.ejs', { field }) %>
-		<% break;
-	case 'datetime' : %>
-		<%- include('../includes/field/form-edit-datetime.ejs', { field }) %>
-		<% break;
-	case 'hidden' : %>
-		<%- include('../includes/field/form-edit-hidden.ejs', { field }) %>
-		<% break; 
-	case 'number' : %>
-		<%- include('../includes/field/form-edit-number.ejs', { field }) %>
-		<% break;
-	case 'options' : %>
-		<%- include('../includes/field/form-edit-options.ejs', { field }) %>
-		<% break;
-	default : %>
-		<%- include('../includes/field/form-edit-string.ejs', { field }) %>
-<% } %>
+<div class="container">
+	<div class="row justify-content-center">
+		<form
+			class="form-centered"
+			method="POST"
+			action="/field/config/<%= field.id %>/<%= mode %>"
+		>
+			<% switch(field.type) { case 'boolean' : %> <%-
+			include('../includes/field/form-edit-boolean.ejs', { field }) %> <%
+			break; case 'datetime' : %> <%-
+			include('../includes/field/form-edit-datetime.ejs', { field }) %> <%
+			break; case 'hidden' : %> <%-
+			include('../includes/field/form-edit-hidden.ejs', { field }) %> <%
+			break; case 'number' : %> <%-
+			include('../includes/field/form-edit-number.ejs', { field }) %> <%
+			break; case 'options' : %> <%-
+			include('../includes/field/form-edit-options.ejs', { field }) %> <%
+			break; default : %> <%-
+			include('../includes/field/form-edit-string.ejs', { field }) %> <% } %>
+	
+			<div class="form-group">
+				<button class="btn btn-success" type="submit">
+					save &amp; exit
+				</button>
+			</div>
+		</form>
+	</div>
+	
+</div>

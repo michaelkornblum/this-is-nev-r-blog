@@ -25,4 +25,9 @@ module.exports = class Field extends Base {
 		const remainingItems = array.filter(item => item.order > itemOrder);
 		callBack(remainingItems);
 	}
+
+	static sortByOrder(array, callback) {
+		const sortedFields = array.sort((a, b) => a.order - b.order);
+		callback(sortedFields);
+	}
 };

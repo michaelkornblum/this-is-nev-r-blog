@@ -16,131 +16,159 @@ const fieldTypes = [
 	'text',
 ];
 
+const defaultRenderObj = {
+	pageTitle: 'Fields',
+	fieldId: null,
+	fieldName: null,
+	willEdit: false,
+	isEditing: false,
+	isDeleting: false,
+	capitalize,
+	fieldTypes,
+	wasAdded: false,
+	wasEdited: false,
+	wasDeleted: false,
+	wasConfigured: false
+};
+
 exports.getFieldIndex = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
 		Field.findByCollectionId(collection.id, fields =>
-			res.render('field/index', {
-				pageTitle: 'Fields',
-				fields: fields.sort((a, b) => a.order - b.order),
-				collection,
-				capitalize,
-				fieldTypes,
-				fieldId: null,
-				fieldName: null,
-				isEditing: false,
-				isDeleting: false,
-				wasAdded: false,
-				wasEdited: false,
-				wasDeleted: false
+			Field.sortByOrder(fields, fields => {
+				res.render('field/index', {
+					...defaultRenderObj,
+					collection,
+					fields,
+				});
 			}),
 		),
+	);
+
+exports.getConfigField = (req, res) =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByName(req.query.fieldName, field => {
+			res.render('field/edit', {
+				pageTitle: 'Configure Field',
+				collection,
+				field,
+				mode: req.query.mode
+			});
+		}),
 	);
 
 exports.getEditField = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
 		Field.findByCollectionId(collection.id, fields =>
-			Field.findById(req.query.fieldId, field =>
-				res.render('field/index', {
-					pageTitle: 'Fields',
-					fields: fields.sort((a, b) => a.order - b.order),
-					collection,
-					capitalize,
-					fieldTypes,
-					fieldId: field.id,
-					fieldName: field.name,
-					isEditing: true,
-					isDeleting: false,
-					wasAdded: false,
-					wasEdited: false,
-					wasDeleted: false
-				}),
-			)
-			
+			Field.sortByOrder(fields, fields => {
+				Field.findById(req.query.fieldId, field =>
+					res.render('field/index', {
+						...defaultRenderObj,
+						collection,
+						fields,
+						fieldId: field.id,
+						fieldName: field.name,
+						isEditing: true,
+					}),
+				);
+			}),
 		),
 	);
 
-	
-
-// exports.getEditField = (req, res) =>
-// 	Collection.fetchAll( collections =>
-// 		Collection.findById(req.query.collectionId, collection =>
-// 			Field.findById(req.query.fieldId, field =>
-// 				res.render('field/index', {
-// 					pageTitle: 'Edit Field',
-// 					field,
-// 					collections,
-// 					collection,
-// 					capitalize
-// 				}),
-// 			),
-// 		)
-// 	)
-	
-
+exports.getWillEditField = (req, res) =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByCollectionId(collection.id, fields =>
+			Field.sortByOrder(fields, fields => 
+				Field.findById(req.query.fieldId, field =>
+					res.render('field/index', {
+						...defaultRenderObj,
+						collection,
+						fields,
+						fieldId: field.id,
+						fieldName: field.name,
+						willEdit: true
+					})
+				)
+			)
+		)
+	)
+		
 exports.getDeleteField = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
 		Field.findByCollectionId(collection.id, fields =>
-			Field.findById(req.query.fieldId, field =>
-				res.render('field/index', {
-					pageTitle: 'Fields',
-					fields: fields.sort((a, b) => a.order - b.order),
-					collection,
-					capitalize,
-					fieldTypes,
-					fieldId: field.id,
-					fieldName: field.name,
-					isEditing: false,
-					isDeleting: true,
-					wasAdded: false,
-					wasEdited: false,
-					wasDeleted: false
-				}),
+			Field.sortByOrder(fields, fields =>
+				Field.findById(req.query.fieldId, field =>
+					res.render('field/index', {
+						...defaultRenderObj,
+						collection,
+						fields,
+						fieldId: field.id,
+						fieldName: field.name,
+						isDeleting: true,
+					}),
+				),
 			),
 		),
 	);
 
 exports.getAddedField = (req, res) =>
-	Field.findByName(req.query.fieldName, field =>
-		Collection.findById(field.collectionId, collection =>
-			Field.findByCollectionId(collection.id, fields =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByCollectionId(collection.id, fields =>
+			Field.sortByOrder(fields, fields =>
 				res.render('field/index', {
-					pageTitle: 'Fields',
-					fields: fields.sort((a, b) => a.order - b.order),
+					...defaultRenderObj,
 					collection,
-					capitalize,
-					fieldTypes,
-					fieldId: null,
-					fieldName: field.name,
-					isEditing: false,
-					isDeleting: false,
+					fields,
+					fieldName: req.query.fieldName,
 					wasAdded: true,
-					wasEdited: false,
-					wasDeleted: false
-				})
-			)
-		)
-	)
+				}),
+			),
+		),
+	),
+
+exports.getEditedField = (req, res) =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByCollectionId(collection.id, fields =>
+			Field.sortByOrder(fields, fields =>
+				res.render('field/index', {
+					...defaultRenderObj,
+					collection,
+					fields,
+					fieldName: req.query.fieldName,
+					wasEdited: true,
+				}),
+			),
+		),
+	),
 
 exports.getDeletedField = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
 		Field.findByCollectionId(collection.id, fields =>
-			res.render('field/index', {
-				pageTitle: 'Fields',
-				fields: fields.sort((a, b) => a.order - b.order),
-				collection,
-				capitalize,
-				fieldTypes,
-				fieldId: null,
-				fieldName: req.query.fieldName,
-				isEditing: false,
-				isDeleting: false,
-				wasAdded: false,
-				wasEdited: false,
-				wasDeleted: true
-			})
-	)
-)
-	
+			Field.sortByOrder(fields, fields =>
+				res.render('field/index', {
+					...defaultRenderObj,
+					collection,
+					fields,
+					fieldName: req.query.fieldName,
+					wasDeleted: true,
+				}),
+			),
+		),
+	);
+
+exports.getConfiguredField = (req, res) =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByCollectionId(collection.id, fields =>
+			Field.sortByOrder(fields, fields =>
+				res.render('field/index', {
+					...defaultRenderObj,
+					collection,
+					fields,
+					fieldName: req.query.fieldName,
+					wasConfigured: true,
+				}),
+			),
+		),
+	);
 
 exports.postAddField = (req, res) =>
 	Field.findByCollectionId(req.body.collectionId, fields =>
@@ -154,7 +182,9 @@ exports.postAddField = (req, res) =>
 		).save(err =>
 			err
 				? console.error(err)
-				: res.redirect(`/field/added?fieldName=${req.body.fieldName}`),
+				: res.redirect(
+						`/field/config?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}&mode=adding`,
+				),
 		),
 	);
 
@@ -225,6 +255,24 @@ exports.postMoveDownField = (req, res) =>
 	);
 
 exports.postEditField = (req, res) =>
+	Field.findById(req.body.fieldId, field =>
+		new Field(
+			field.id,
+			req.body.fieldName,
+			field.collectionId,
+			req.body.fieldType,
+			field.order,
+			{},
+		).save(err =>
+			err
+				? console.error(err)
+				: res.redirect(
+					`/field/config?fieldName=${req.body.fieldName}&collectionId=${field.collectionId}&mode=editing`,
+			),
+		),
+	);
+
+exports.postConfigField = (req, res) =>
 	Field.findById(req.params.fieldId, field =>
 		new Field(
 			field.id,
@@ -232,15 +280,24 @@ exports.postEditField = (req, res) =>
 			field.collectionId,
 			field.type,
 			field.order,
-			req.body,
-		).save(err =>
-			err
-				? console.error(err)
-				: res.redirect(
-					`/fields?collectionId=${field.collectionId}`,
-				),
-		),
-	);
+			req.body
+		).save(err => {
+			if (err) {
+				console.error(err)
+			} else {
+				switch(req.params.mode) {
+					case "adding" :
+						res.redirect(`/field/added?fieldName=${field.name}&collectionId=${field.collectionId}`);
+						break;
+					case "editing" :
+						res.redirect(`/field/edited?fieldName=${field.name}&collectionId=${field.collectionId}`);
+						break;
+					default :
+						res.redirect(`/field/configured?fieldName=${field.name}&collectionId=${field.collectionId}`);
+				}
+			}
+		})
+	)
 
 exports.postDeleteField = (req, res) =>
 	Field.findByCollectionId(req.body.collectionId, fields =>

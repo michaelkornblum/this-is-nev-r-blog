@@ -1,52 +1,50 @@
-<form class="mt-4 ml-4" method="POST" action="/field/edit/<%= field.id %>">
-	<div class="form-group row">
-		<label class="col-sm-2 col-form-label" for="field-label">Label</label>
-		<div class="col-sm-4">
-			<input
-				class="form-control"
-				type="text"
-				name="label"
-				id="field-label"
-				value="<%= field.config.label %>"
-				placeholder="ex: Title, Author"
-				required
-			/>
-		</div>
+
+	<div class="form-group">
+		<label class="col-form-label" for="field-label">Label</label>
+        <input
+            class="form-control"
+            type="text"
+            name="label"
+            id="field-label"
+            value="<%= field.config.label %>"
+            placeholder="ex: Title, Author"
+            required
+        />
     </div>
     
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="field-min-length">
+    <div class="form-group">
+        <label class="form-label" for="field-min-length">
             Minimum Length
         </label>
-        <div class="col-sm-4">
             <input 
                 class="form-control"
                 type="number"
                 name="minLength"
                 id="field-min-length"
                 value="<%= field.config.minLength %>"
+                step="1"
+                min="4"
                 placeholder="Minimum Character Length"
             />
-        </div>
     </div>
 
-	<div class="form-group row">
-		<label class="col-sm-2 col-form-label" for="field-max-length">
+	<div class="form-group">
+		<label class="form-label" for="field-max-length">
 			Maximum Length
         </label>
-        <div class="col-sm-4">
             <input 
                 class="form-control"
                 type="number"
                 name="maxLength"
                 id="field-max-length"
                 value="<%= field.config.maxLength %>"
+                step="1"
+                max="250"
                 placeholder="Maximum Character Length"
             />
-        </div>
     </div>
     
-    <div class="form-group-row">
+    <div class="form-group">
         <div class="custom-control custom-checkbox">
             <input
                 class="custom-control-input"
@@ -66,9 +64,4 @@
         </div>
     </div>
 
-    <div class="form-group row">
-        <button class="btn btn-success ml-3 mt-3" type="submit">
-            save &amp; exit
-        </button>
-    </div>
-</form>
+    
