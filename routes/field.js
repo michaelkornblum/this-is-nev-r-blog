@@ -9,15 +9,18 @@ const {
 	getAddedField,
 	getEditedField,
 	getDeletedField,
+	getMovedField,
 	getConfiguredField,
+} = require('../controllers/field/get');
 
+const {
 	postAddField,
 	postMoveUpField,
 	postMoveDownField,
 	postConfigField,
 	postEditField,
 	postDeleteField,
-} = require('../controllers/field');
+} = require('../controllers/field/post');
 
 const router = express.Router();
 
@@ -29,6 +32,7 @@ router.get('/field/delete', getDeleteField);
 router.get('/field/added', getAddedField);
 router.get('/field/edited', getEditedField);
 router.get('/field/deleted', getDeletedField);
+router.get('/field/moved', getMovedField);
 router.get('/field/configured', getConfiguredField);
 
 router.post('/field/add', postAddField);

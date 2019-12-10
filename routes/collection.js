@@ -7,11 +7,13 @@ const {
 	getAddedCollection,
 	getEditedCollection,
 	getDeletedCollection,
+} = require('../controllers/collection/get');
 
+const {
 	postAddCollection,
 	postEditCollection,
 	postDeleteCollection,
-} = require('../controllers/collection');
+} = require('../controllers/collection/post');
 
 const router = express.Router();
 

@@ -1,0 +1,7 @@
+Todo:
+    ☐ Prevent addition to fields, collections, and entries if title exists.
+    Make collection list consistent with fields list interface.
+    ☐ Create more forms for field creation.
+    ☐ Prevent acess to entries page if no field types are created for a collection.
+    ☐ Split controller files into get and post requests
+    
