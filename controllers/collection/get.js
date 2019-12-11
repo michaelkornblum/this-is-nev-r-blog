@@ -9,6 +9,7 @@ const defaultRenderObj = {
 	wasAdded: false,
 	wasEdited: false,
 	wasDeleted: false,
+	duplicateName: false,
 };
 
 const actionTaken = key => (req, res) =>
@@ -51,6 +52,17 @@ exports.getDeleteCollection = (req, res) =>
 			}),
 		),
 	);
+
+exports.getDuplicateName = (req, res) =>
+	Collection.fetchAll(collections =>
+		res.render('collection/index', {
+			...defaultRenderObj,
+			collections,
+			collectionName: req.query.collectionName,
+			duplicateName: true
+		}),
+	);
+	
 
 exports.getAddedCollection = actionTaken('wasAdded');
 exports.getEditedCollection = actionTaken('wasEdited');

@@ -1,7 +1,14 @@
 Todo:
     ☐ Prevent addition to fields, collections, and entries if title exists.
-    Make collection list consistent with fields list interface.
+        ✔ Add name validation to collections. @done (12/10/2019, 12:59:30 PM)
+        ☐ Add name validation to fields.
+
+    ✔ Make collection list consistent with fields list interface. @done (12/11/2019, 9:46:03 AM)
+
+    ☐ Create notification for movement of fields.
+
     ☐ Create more forms for field creation.
-    ☐ Prevent acess to entries page if no field types are created for a collection.
-    ☐ Split controller files into get and post requests
+    ☐ Prevent access to entries page if no field types are created for a collection.
+    ☐ Create function that trims whitespace and turns multi-word strings into camelCase.
+    ✔ Split controller files into get and post requests @done (12/10/2019, 12:08:23 PM)
     

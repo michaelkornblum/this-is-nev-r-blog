@@ -6,7 +6,12 @@
     <div class="form-group">
         <label class="form-label" for="collection-name">Collection Name</label>
         <input
-            class="form-control"
+            class="
+                form-control 
+                <% if (duplicateName) { %> 
+                    is-invalid 
+                <% } %>
+            "
             id="collection-name"
             name="collectionName"
             type="text"
@@ -16,6 +21,9 @@
                 disabled
             <% } %>
         />
+        <% if (duplicateName) { %>
+            <div class="invalid-feedback">Collection name, <%= collectionName %> is already taken.</div>
+        <% } %>
     </div>
         
     <div>

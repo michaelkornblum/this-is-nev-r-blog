@@ -7,6 +7,7 @@ const {
 	getAddedCollection,
 	getEditedCollection,
 	getDeletedCollection,
+	getDuplicateName,
 } = require('../controllers/collection/get');
 
 const {
@@ -23,6 +24,7 @@ router.get('/collection/delete', getDeleteCollection);
 router.get('/collection/added', getAddedCollection);
 router.get('/collection/edited', getEditedCollection);
 router.get('/collection/deleted', getDeletedCollection);
+router.get('/collection/duplicate', getDuplicateName);
 
 router.post('/collection/add', postAddCollection);
 router.post('/collection/edit', postEditCollection);

@@ -8,16 +8,19 @@
 </ul>
 
 <!-- Show modal when deleting collection -->
-<% if (isDeleting) { %> <%-
-include('../includes/collection/modal-delete-collection.ejs', {collectionId,
-collectionName}) %> <% } %>
+<% if (isDeleting) { %> 
+	<%- include('../includes/collection/modal-delete-collection.ejs', {
+		collectionId,
+		collectionName
+	}) %> 
+<% } %>
 
 <div class="container-fluid">
 	<div class="row">
 		<!-- Sidebar Content-->
 		<div class="col-md-4 col-lg-3 col-xl-2 sidebar bg-light">
 			<!-- Add collection form -->
-			<%- include('../includes/collection/form-add-collection.ejs') %>
+			<%- include('../includes/collection/form-add-collection.ejs', { duplicateName }) %>
 		</div>
 
 		<!-- Main Content -->
@@ -30,7 +33,7 @@ collectionName}) %> <% } %>
 			<!-- Notify when collection is added -->
 			<% if (wasAdded) { %>
 			<div
-				class="alert alert-success alert-dismissable fade show"
+				class="alert alert-info alert-dismissable fade show"
 				role="alert"
 			>
 				Collection <%= collectionName %> has been added.
@@ -56,7 +59,7 @@ collectionName}) %> <% } %>
 			<!-- Notify when collection is deleted -->
 			<% if (wasDeleted) { %>
 			<div
-				class="alert alert-danger alert-dismissable fade show"
+				class="alert alert-info alert-dismissable fade show"
 				role="alert"
 			>
 				Collection <%= collectionName %> was deleted.
@@ -67,10 +70,10 @@ collectionName}) %> <% } %>
 			<% } %>
 
 			<!-- Collection List -->
-			<ul class="list-group list-group-flush">
+			<ul class="list-group list-group-flush container-fluid">
 				<% for (let collection of collections) { %>
 				<li
-					class="list-group-item d-flex justify-content-between align-items-center"
+					class="list-group-item d-flex justify-content-sm-between align-items-center row"
 				>
 					<!-- Show edit form when editing mode is on and collection id matches. -->
 					<% if (isEditing && collectionId === collection.id) { %> <%-
@@ -82,7 +85,7 @@ collectionName}) %> <% } %>
 					<!-- Control buttons -->
 					<!-- Show control buttons for collection when interface is not in edit mode or if interface is in edit mode but the collection id does not match the collectionId variable. -->
 					<% if (!isEditing || collectionId !== collection.id) { %>
-					<div class="btn-group" role="group">
+					<div class="btn-group col-sm-10 justify-content-sm-end my-2" role="group">
 						<!-- Fields Link -->
 						<%- include('../includes/list-item-button.ejs', {
 						btnColor: 'primary', btnLabel: 'fields', btnLink:
