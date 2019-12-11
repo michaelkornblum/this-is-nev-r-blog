@@ -1,22 +1,31 @@
 const Field = require('../../models/Field');
+const { camelCase } = require('../../utils/string-operations');
 
 exports.postAddField = (req, res) =>
-	Field.findByCollectionId(req.body.collectionId, fields =>
-		new Field(
-			null,
-			req.body.fieldName,
-			req.body.collectionId,
-			req.body.fieldType,
-			fields.length + 1,
-			{},
-		).save(err =>
-			err
-				? console.error(err)
-				: res.redirect(
-						`/field/config?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}&mode=adding`,
+	Field.findByName(camelCase(req.body.fieldName), fieldName =>
+		fieldName
+			? res.redirect(
+				`/field/duplicate?collectionId=${req.body.collectionId}&fieldName=${req.body.fieldName}`,
+			)
+			: Field.findByCollectionId(req.body.collectionId, fields =>
+				new Field(
+					null,
+					camelCase(req.body.fieldName),
+					req.body.collectionId,
+					req.body.fieldType,
+					fields.length + 1,
+					{},
+				).save(err =>
+					err
+						? console.error(err)
+						: res.redirect(
+							`/field/config?fieldName=${camelCase(req.body.fieldName)}&collectionId=${req.body.collectionId}&mode=adding`,
+						),
 				),
-		),
-	);
+			)
+	
+	)
+	
 
 exports.postMoveUpField = (req, res) =>
 	Field.findById(req.body.fieldId, field =>
@@ -88,7 +97,7 @@ exports.postEditField = (req, res) =>
 		Field.findById(req.body.fieldId, field =>
 			new Field(
 				field.id,
-				req.body.fieldName,
+				camelCase(req.body.fieldName),
 				field.collectionId,
 				req.body.fieldType,
 				field.order,

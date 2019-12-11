@@ -29,7 +29,8 @@ const defaultRenderObj = {
 	wasEdited: false,
 	wasDeleted: false,
 	wasConfigured: false,
-	wasMoved: false
+	wasMoved: false,
+	duplicateName: false
 };
 
 const actionTaken = key => 
@@ -124,6 +125,21 @@ exports.getDeleteField = (req, res) =>
 					}),
 				),
 			),
+		),
+	);
+
+exports.getDuplicateFieldName = (req, res) =>
+	Collection.findById(req.query.collectionId, collection =>
+		Field.findByCollectionId(collection.id, fields =>
+			Field.sortByOrder(fields, fields => {
+				res.render('field/index', {
+					...defaultRenderObj,
+					collection,
+					fields,
+					fieldName: req.query.fieldName,
+					duplicateName: true
+				});
+			}),
 		),
 	);
 

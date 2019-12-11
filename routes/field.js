@@ -11,6 +11,7 @@ const {
 	getDeletedField,
 	getMovedField,
 	getConfiguredField,
+	getDuplicateFieldName,
 } = require('../controllers/field/get');
 
 const {
@@ -34,6 +35,7 @@ router.get('/field/edited', getEditedField);
 router.get('/field/deleted', getDeletedField);
 router.get('/field/moved', getMovedField);
 router.get('/field/configured', getConfiguredField);
+router.get('/field/duplicate', getDuplicateFieldName);
 
 router.post('/field/add', postAddField);
 router.post('/field/move-up', postMoveUpField);
