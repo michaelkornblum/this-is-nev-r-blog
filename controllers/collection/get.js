@@ -53,7 +53,7 @@ exports.getDeleteCollection = (req, res) =>
 		),
 	);
 
-exports.getDuplicateName = (req, res) =>
+exports.getDuplicateCollectionName = (req, res) =>
 	Collection.fetchAll(collections =>
 		res.render('collection/index', {
 			...defaultRenderObj,

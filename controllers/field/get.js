@@ -65,7 +65,7 @@ exports.getFieldIndex = (req, res) =>
 exports.getConfigField = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
 		Field.findByName(req.query.fieldName, field => {
-			res.render('field/edit', {
+			res.render('field/configure', {
 				pageTitle: 'Configure Field',
 				collection,
 				field,
