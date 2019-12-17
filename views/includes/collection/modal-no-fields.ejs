@@ -1,0 +1,26 @@
+<div class="modal-backdrop show"></div>
+	<div class="modal" style="display:block;" id="no-fields-modal" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary text-light">
+					<h2 class="modal-title">No Fields Detected</h2>
+				</div>
+				<div class="modal-body">
+					<p>
+						Each collection entry requires at least on field to store data. Unfortunately, there are no fields created for the <%= collectionName %> collection. 
+					</p>
+					<p>
+						Would you like to create fields for <%= collectionName %> now?
+					</p>
+				</div>
+				<div class="modal-footer">
+                    <a class="btn btn-primary" href="/fields?collectionId=<%= collectionId %>">
+                        Yes
+                    </a>
+					<a class="btn btn-primary" href="/">
+						No
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>

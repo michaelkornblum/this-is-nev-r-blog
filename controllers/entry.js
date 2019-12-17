@@ -3,17 +3,22 @@ const Field = require('../models/Field');
 const Entry = require('../models/Entry');
 
 exports.getEntryIndex = (req, res) =>
-	Collection.findById(req.query.collectionId, collection =>
-		Entry.findByCollectionId(collection.id, entries =>
-			res.render('entry/index', {
-				pageTitle: 'Entries',
-				collection,
-				entries,
-				entryId: null,
-				isDeleting: false,
-			}),
-		),
-	);
+	Field.findByCollectionId(req.query.collectionId, fields => 
+		fields.length 
+			? Collection.findById(req.query.collectionId, collection =>
+				Entry.findByCollectionId(collection.id, entries =>
+					res.render('entry/index', {
+						pageTitle: 'Entries',
+						collection,
+						entries,
+						entryId: null,
+						isDeleting: false,
+					}),
+				),
+			)
+			: res.redirect(`/collection/no-fields?collectionId=${req.query.collectionId}`)
+	)
+	
 
 exports.getAddEntry = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>

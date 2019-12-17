@@ -10,6 +10,7 @@ const defaultRenderObj = {
 	wasEdited: false,
 	wasDeleted: false,
 	duplicateName: false,
+	noFields: false
 };
 
 const actionTaken = key => (req, res) =>
@@ -62,6 +63,19 @@ exports.getDuplicateCollectionName = (req, res) =>
 			duplicateName: true
 		}),
 	);
+
+exports.getNoFieldsInCollection = (req, res) =>
+	Collection.fetchAll(collections =>
+		Collection.findById(req.query.collectionId, collection =>
+			res.render('collection/index', {
+				...defaultRenderObj,
+				collections,
+				collectionName: collection.name,
+				collectionId: collection.id,
+				noFields: true
+			})
+		)
+	)
 	
 
 exports.getAddedCollection = actionTaken('wasAdded');

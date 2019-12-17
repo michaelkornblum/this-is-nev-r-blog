@@ -8,6 +8,7 @@ const {
 	getEditedCollection,
 	getDeletedCollection,
 	getDuplicateCollectionName,
+	getNoFieldsInCollection,
 } = require('../controllers/collection/get');
 
 const {
@@ -25,6 +26,7 @@ router.get('/collection/added', getAddedCollection);
 router.get('/collection/edited', getEditedCollection);
 router.get('/collection/deleted', getDeletedCollection);
 router.get('/collection/duplicate', getDuplicateCollectionName);
+router.get('/collection/no-fields', getNoFieldsInCollection);
 
 router.post('/collection/add', postAddCollection);
 router.post('/collection/edit', postEditCollection);

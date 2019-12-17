@@ -15,6 +15,13 @@
 	}) %> 
 <% } %>
 
+<% if (noFields) { %>
+	<%- include('../includes/collection/modal-no-fields.ejs', {
+		collectionId,
+		collectionName
+	}) %>
+<% } %>
+
 <div class="container-fluid">
 	<div class="row">
 		<!-- Sidebar Content-->
@@ -90,26 +97,26 @@
 						<%- include('../includes/list-item-button.ejs', {
 						btnColor: 'primary', btnLabel: 'fields', btnLink:
 						`/fields?collectionId=${collection.id}`, isDisabled:
-						isEditing || isDeleting }) %>
+						isEditing || isDeleting || noFields}) %>
 
 						<!-- Entries Link -->
 						<%- include('../includes/list-item-button.ejs', {
 						btnColor: 'secondary', btnLabel: 'entries', btnLink:
 						`/entries?collectionId=${collection.id}`, isDisabled:
-						isEditing || isDeleting }) %>
+						isEditing || isDeleting || noFields}) %>
 
 						<!-- Edit Link -->
 						<%- include('../includes/list-item-button.ejs', {
 						btnColor: 'warning', btnLabel: 'edit', btnLink:
 						`/collection/edit?collectionId=${collection.id}`,
-						isDisabled: isEditing || isDeleting }) %>
+						isDisabled: isEditing || isDeleting || noFields}) %>
 
 						<!-- Delete Link-->
 						<%- include('../includes/list-item-button.ejs', {
 						itemId: collection.id, btnColor: 'danger', btnLabel:
 						'delete', btnLink:
 						`/collection/delete?collectionId=${collection.id}`,
-						isDisabled: isEditing || isDeleting }) %>
+						isDisabled: isEditing || isDeleting || noFields}) %>
 					</div>
 					<% } %>
 				</li>
