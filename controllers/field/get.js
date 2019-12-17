@@ -7,7 +7,7 @@ const fieldTypes = [
 	'datetime',
 	// 'file',
 	'hidden',
-	//'image',
+	'image',
 	// 'list',
 	'number',
 	'options',

@@ -1,67 +1,64 @@
+<div class="form-group">
+	<label class="form-label" for="field-label">Label</label>
+	<input
+		class="form-control"
+		type="text"
+		name="label"
+		id="field-label"
+		value="<%= field.config.label %>"
+		placeholder="ex: Title, Author"
+		required
+	/>
+</div>
 
-	<div class="form-group">
-		<label class="col-form-label" for="field-label">Label</label>
-        <input
-            class="form-control"
-            type="text"
-            name="label"
-            id="field-label"
-            value="<%= field.config.label %>"
-            placeholder="ex: Title, Author"
-            required
-        />
-    </div>
-    
-    <div class="form-group">
-        <label class="form-label" for="field-min-length">
-            Minimum Length
-        </label>
-            <input 
-                class="form-control"
-                type="number"
-                name="minLength"
-                id="field-min-length"
-                value="<%= field.config.minLength %>"
-                step="1"
-                min="2"
-                placeholder="Minimum Character Length"
-            />
-    </div>
+<div class="form-group">
+	<label class="form-label" for="field-min-length">
+		Minimum Length
+	</label>
+	<input
+		class="form-control"
+		type="number"
+		name="minLength"
+		id="field-min-length"
+		value="<%= field.config.minLength %>"
+		step="1"
+		min="2"
+		placeholder="Minimum Character Length"
+	/>
+</div>
 
-	<div class="form-group">
-		<label class="form-label" for="field-max-length">
-			Maximum Length
-        </label>
-            <input 
-                class="form-control"
-                type="number"
-                name="maxLength"
-                id="field-max-length"
-                value="<%= field.config.maxLength %>"
-                step="1"
-                max="250"
-                placeholder="Maximum Character Length"
-            />
-    </div>
-    
-    <div class="form-group">
-        <div class="custom-control custom-checkbox">
-            <input
-                class="custom-control-input"
-                type="checkbox"
-                id="field-is-required"
-                name="isRequired"
-                <% if (field.config.isRequired) { %>
-                    checked
-                <% } %>
-            >
-            <label 
-                class="custom-control-label"
-                for="field-is-required"
-            >
-                Required
-            </label>
-        </div>
-    </div>
+<div class="form-group">
+	<label class="form-label" for="field-max-length">
+		Maximum Length
+	</label>
+	<input
+		class="form-control"
+		type="number"
+		name="maxLength"
+		id="field-max-length"
+		value="<%= field.config.maxLength %>"
+		step="1"
+		max="250"
+		placeholder="Maximum Character Length"
+	/>
+</div>
 
-    
+<div class="form-group">
+	<div class="custom-control custom-checkbox">
+		<input
+			class="custom-control-input"
+			type="checkbox"
+			id="field-is-required"
+			name="isRequired"
+			<%
+			if
+			(field.config.isRequired)
+			{
+			%
+		/>
+		checked <% } %> >
+		<label class="custom-control-label" for="field-is-required">
+			Required
+		</label>
+	</div>
+</div>
