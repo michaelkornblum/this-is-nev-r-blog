@@ -1,62 +1,43 @@
-<form class="mt-4 ml-4" method="POST" action="/field/edit/<%= field.id %>">
-	<div class="form-group row">
-        <label 
-            class="col-sm-2 col-form-label" 
-            for="field-label"
-        >
-            Label
-        </label>
-		<div class="col-sm-4">
-			<input
-				class="form-control"
-				type="text"
-				name="label"
-				id="field-label"
-				value="<%= field.config.label %>"
-				placeholder="ex: Is Draft, On Sale"
-				required
-			/>
-		</div>
+	<div class="form-group">
+        <label class="col-form-label" for="field-label">Label</label>
+        <input
+            class="form-control"
+            type="text"
+            name="label"
+            id="field-label"
+            value="<%= field.config.label %>"
+            placeholder="ex: Is Draft, On Sale"
+            required
+        />
     </div>
     
-    <div class="form-group row">
-        <label 
-            class="col-sm-2 col-form-label"  
-            for="field-default"
-        >
-            Default
-        </label>
-        <div class="col-sm-1">
-            <input
-                class="radio mt-2"
-                type="radio"
-                name="default"
-                id="field-default-true"
-                value="true"
-                <% if (field.config.default === "true" || !field.config.default) { %>
-                    checked
-                <% } %>
-            />
-            <label for="field-default-true">True</label>
-        </div>
-        <div class="col-sm-1">
-            <input
-                class="radio mt-2"
-                type="radio"
-                name="default"
-                id="field-default-false"
-                value="false"
-                <% if (field.config.default === "false") { %>
-                    checked
-                <% } %>
-            />
-            <label for="field-default-false">False</label>
-        </div>
-    </div>
+    <div class="form-group">
+        <legend class="col-form-label mr-4">Default</legend>
+        <input
+            class="radio mt-2"
+            type="radio"
+            name="default"
+            id="field-default-true"
+            value="true"
+            <% if (field.config.default === "true") { %>
+                checked
+            <% } %>
+        />
+        <label class="col-form-label mr-2" for="field-default-true">True</label>
 
-    <div class="form-group row">
-        <button class="btn btn-success ml-3 mt-3" type="submit">
-            save &amp; exit
-        </button>
+        <input
+            class="radio mt-2"
+            type="radio"
+            name="default"
+            id="field-default-false"
+            value="false"
+            <% if (field.config.default === "false") { %>
+                checked
+            <% } %>
+        />
+        <label class="col-form-label" for="field-default-false">False</label>
     </div>
-</form>
+            
+        
+
+    
