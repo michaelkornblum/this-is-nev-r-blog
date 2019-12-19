@@ -52,7 +52,7 @@
                 <!-- Notify when field is added -->
                 <% if (wasAdded) { %>
                     <div class="alert alert-info alert-dismissable fade show" role="alert">
-                        Field <%= fieldName %> has been added.
+                        Field <%= fieldName %> has been added to <%= collection.name %>.
                         <button type="button" class="close" data-dismiss="alert">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -89,7 +89,7 @@
                     </div>
                 <% } %>
 
-                <!-- Notify when field configuration has changed -->
+                <!-- Notify when field is moved -->
                 <% if (wasMoved) { %>
                     <div class="alert alert-info alert-dismissable fade show" role="alert">
                         Field <%= fieldName %> was moved.

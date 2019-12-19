@@ -1,62 +1,142 @@
 <%- include('../includes/head.ejs') %>
 
-<nav
-    class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
->
-    <h1 class="navbar-brand"><%= collection.name %> entries</h1>
-    <a href="/" class="nav-link">Back to Collections</a>
-</nav>
+<!-- Breadcrumb Navigation-->
+<ul class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/" class="breadcrumb-link">collections</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="/fields?collectionId=<%= collection.id %>" class="breadcrumb-link"><%= collection.name %> fields</a>
+    </li>
+    <li class="breadcrumb-item">
+        <%= collection.name %> entries
+    </li>
+</ul>
 
 <!-- Show modal when deleting entries -->
 <% if (isDeleting) { %> 
-    <%- include('../includes/entry/modal-delete-.ejs', {
-        collectionId: collection.id, 
+    <%- include('../includes/entry/modal-delete-entry.ejs', {
+        collectionId: collection.id,
+        entryName,
         entryId
     }) %>
 <% } %>
 
 <div class="container-fluid">
-    <!-- Show message when there are no collections-->
-    <% if (!entries.length) { %>
-        <h2>No Entries on File</h2>
-        <p>Click the button below to create a new entry.</p>
-    <% } else { %>
-        <h2>Entry List</h2>
-    <% } %>
+    <div class="row">
+        <!-- Sidebar Content -->
+        <div class="col-md-4 col-lg-3 col-xl-2 sidebar bg-light">
+            <!-- Add Entry Link -->
+            <div class="text-center">
+                <a href="/entry/add?collectionId=<%= collection.id %>" style="width: 100%; max-width: 10em" class="btn btn-success align-center">Add New Entry</a>
+            </div>
+            
+        </div>
 
-    <!-- Link to add field -->
-    <a 
-        class="btn btn-success" 
-        href="/entry/add?collectionId=<%= collection.id %>"
-    >
-        add entry
-    </a>
+        <!-- Main Content -->
+        <div class="col-md-8 col-lg-9 col-xl-10">
+            <% if (entries.length) { %>
+                <h1 class="mt-2">Entry List</h1>
 
-    <!-- Show fields belonging to collection when they exist -->
-    <% if (entries.length) { %>
-        <ul class="list-group list-group-flush">
-            <% for (let emtry of entries) { %>
-                <li class="list-group-item d-flex justify-content-between align-items-center"><%= entry.name %>
-                    <div class="btn-group" role="group">
-
-                        <!-- Link to Edit Field -->
-                        <%- include('../includes/list-item-button.ejs', {
-                            btnColor: 'warning',
-                            btnLabel: 'edit',
-                            btnLink: `/entry/edit?collectionId=${collection.id}&entryId=${entry.id}`,
-                            isDisabled: isDeleting
-                        }) %>
-
-                        <!-- Link to Delete field -->
-                        <%- include('../includes/list-item-button.ejs', {
-                            btnColor: 'danger',
-                            btnLabel: 'delete',
-                            btnLink: `/entry/delete?collectionId=${collection.id}&entryId=${entry.id}`,
-                            isDisabled: isDeleting
-                        }) %>
+                <!-- Notification Area -->
+                <!-- Notify when entry is added -->
+                <% if (wasAdded) { %>
+                    <div class="alert alert-info alert-dismissable fade show" role="alert">
+                        Entry <%= entryName %> has been added to <%= collection.name %>
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </li>
+                <% } %>
+
+                <!-- Notify when entry is edited -->
+                <% if (wasEdited) { %>
+                    <div class="alert alert-info alert-dismissable fade show" role="alert">
+                        Entry <%= entryName %> was edited.
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+
+                <!-- Notify when entry is deleted -->
+                <% if (wasDeleted) { %>
+                    <div class="alert alert-info alert-dismissable fade show" role="alert">
+                        Field <%= entryName %> was deleted.
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <% } %>
+
+                <!-- Entry Table -->
+                <div class="table-responsive-md">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    User
+                                </th>
+                                <th scope="col">
+                                    Creation Date
+                                </th>
+                                <th scope="col">
+                                    Last Modified
+                                </th>
+                                <th scope="col">
+                                    Draft?
+                                </th>
+                                <th scope="col">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% for (let entry of entries) { %>
+                                <tr>
+                                    <th scope="row"><%= entry.name %></th>
+                                    <td>John Doe</td>
+                                    <td><%= entry.creationDate %></td>
+                                    <td><%= entry.lastModified %></td>
+                                    <td><%= entry.isDraft %></td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <!-- Edit Entry Link -->
+                                            <%- include('../includes/list-item-button.ejs', {
+                                                btnColor: 'warning', 
+                                                btnLabel: 'edit', 
+                                                btnLink: `/entry/edit?entryId=${entry.id}`,
+                                                isDisabled: isDeleting
+                                            }) %>
+
+                                            <!-- Delete Entry Link -->
+                                            <%- include('../includes/list-item-button.ejs', {
+                                                itemId: collection.id, 
+                                                btnColor: 'danger', 
+                                                btnLabel: 'delete', 
+                                                btnLink: `/entry/delete?entryId=${entry.id}`,
+                                                isDisabled: isDeleting
+                                            }) %>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <h1 class="mt-2">
+                    No Entries on File
+                </h1>
+                <p>Create your first entry by clicking the button on the left.</p>
             <% } %>
-        </ul>
-    <% } %>
+        </div>
+    </div>
 </div>
+
+<%- include('../includes/foot.ejs') %>
+    
