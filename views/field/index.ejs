@@ -147,11 +147,11 @@
                                         isDisabled: isDeleting || isEditing
                                     }) %>
 
-                                    <!-- Link to Edit Field -->
+                                    <!-- Link to Configure Field -->
                                     <%- include('../includes/list-item-button.ejs', {
                                         btnColor: 'primary',
                                         btnLabel: 'configure',
-                                        btnLink: `/field/config?fieldName=${field.name}&collectionId=${collection.id}&mode=default`,
+                                        btnLink: `/field/config?fieldId=${field.id}&collectionId=${collection.id}&mode=default`,
                                         isDisabled: isDeleting || isEditing
                                     }) %>
             
