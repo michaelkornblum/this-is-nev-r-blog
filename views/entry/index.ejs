@@ -28,7 +28,7 @@
         <div class="col-md-4 col-lg-3 col-xl-2 sidebar bg-light">
             <!-- Add Entry Link -->
             <div class="text-center">
-                <a href="/entry/add?collectionId=<%= collection.id %>" style="width: 100%; max-width: 10em" class="btn btn-success align-center">Add New Entry</a>
+                <a href="/entry/add?collectionId=<%= collection.id %>&mode=add" style="width: 100%; max-width: 10em" class="btn btn-success align-center">Add New Entry</a>
             </div>
             
         </div>
@@ -70,24 +70,21 @@
                 <% } %>
 
                 <!-- Entry Table -->
-                <div class="table-responsive-md">
+                <div class="table-responsive">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    Name
+                                    Title
                                 </th>
                                 <th scope="col">
-                                    User
+                                    Author
                                 </th>
                                 <th scope="col">
                                     Creation Date
                                 </th>
                                 <th scope="col">
                                     Last Modified
-                                </th>
-                                <th scope="col">
-                                    Draft?
                                 </th>
                                 <th scope="col">
                                     Actions
@@ -98,11 +95,10 @@
                         <tbody>
                             <% for (let entry of entries) { %>
                                 <tr>
-                                    <th scope="row"><%= entry.name %></th>
-                                    <td>John Doe</td>
+                                    <th scope="row"><%= entry.title %></th>
+                                    <td><%= entry.author %></td>
                                     <td><%= entry.creationDate %></td>
                                     <td><%= entry.lastModified %></td>
-                                    <td><%= entry.isDraft %></td>
                                     <td>
                                         <div class="btn-group" role="group">
                                             <!-- Edit Entry Link -->

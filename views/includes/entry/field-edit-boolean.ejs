@@ -1,0 +1,13 @@
+<div class="custom-control custom-checkbox">
+    <input
+        class="custom-control-input"
+        type="checkbox"
+        id="<%= field.name %>"
+        name="<%= field.name %>"
+        <% if (field.config.default === "true" || mode === "edit" && entry[field.name] === "true") { %>
+            checked 
+        <% } %> />
+    <label class="custom-control-label" for="<%= field.name %>">
+        <%= field.config.label %>
+    </label>
+</div>

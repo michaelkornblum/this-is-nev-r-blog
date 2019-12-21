@@ -50,13 +50,9 @@
 			type="checkbox"
 			id="field-is-required"
 			name="isRequired"
-			<%
-			if
-			(field.config.isRequired)
-			{
-			%
-		/>
-		checked <% } %> >
+			<% if (field.config.isRequired) { %>
+				checked 
+			<% } %> />
 		<label class="custom-control-label" for="field-is-required">
 			Required
 		</label>

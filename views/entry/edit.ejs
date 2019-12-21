@@ -1,61 +1,70 @@
 <%- include('../includes/head.ejs') %>
 
-<nav
-    class="navbar-expand-lg navbar-light bg-light d-flex justify-content-between"
->
-    <% if (!isEditing) { %>
-        <h1 class="navbar-brand">New <%= collection.name %> Entry</h1>
-    <% } %>
-    <a
-        class="nav-link"
-        href="/entries?collectionId=<%= collection.id %>"
-    >
-        Back to <%= collection.name %> Entries
-    </a>
-</nav>
+<!-- Breadcrumb Navigation-->
+<ul class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="/" class="breadcrumb-link">collections</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="/fields?collectionId=<%= collection.id %>" class="breadcrumb-link"><%= collection.name %> fields</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="/entries?collectionId=<%= collection.id %>">
+            <%= collection.name %> entries
+        </a>
+    </li>
+    <li class="breadcrumb-item">
+        new entry
+    </li>
+</ul>
 
-<% if (fields.length) { %>
-    <form 
-        class="class="mt-4 ml-4"" 
-        action="/entry/add/<%= collection.id %>" 
-        method="POST"
-    >
-        <legend>Create a new Entry</legend>
-        <div class="form-group row">
-            <label class="ml-4 col-form-label" for="entry-title">Title</label>
-            <div class="col-sm-4">
+<div class="container">
+    <div class="row justify-content-center">
+        <form
+            class="form-centered"
+            method="POST"
+            <% if (mode === 'add') { %>
+                action="/entry/add/<%= collection.id %>"
+            <% } else { %>
+                action="entry/edit/<%= entry.id %>"
+            <% } %>
+        >
+            <legend>
+                Create a New Entry
+            </legend>
+            <% if (mode === "edit") { %>
+                <input type="hidden" name="entryId" value="<%= entry.id %>">
+                <input type="hidden" name="entryCreationDate" value="<%= entry.creationDate %>">
+                <input type="hidden" name="entrylastModified" value="<%= entry.lastModified %>">
+                <input type="hidden" name="author" value="<%= entry.author %>">
+            <% } %>
+
+            <div class="form-group">
+                <label for="entry-title" class="form-label">Title</label>
                 <input
-                    class="form-control"
-                    type="text"
-                    name="name"
+		            class="form-control"
+		            type="text"
+		            name="title"
                     id="entry-title"
-                    placeholder="Entry Title"
-                    required
-                />
+                    <% if (mode === "edit") { %>
+                        value="<%= entry.title %>"
+                    <% } %>
+		            required
+	            />
             </div>
-        </div>
-        <% for (let field of fields) {
-            if (field.type === 'boolean') { %>
-                <div class="form-group-row">
-                    <input
-                        class="ml-2"
-                        type="checkbox"
-                        id="<%= field.name %>"
-                        name="<%= field.name %>"
-                        <% if (field.value === "true" || field.config.default === "true") { %>
-                            checked
-                        <% } %>
-                        value="<%= field.value %>"
-                    >
-                    <label 
-                        for="<%= field.name %>"
-                    >
-                        <%= field.config.label %>
-                    </label>
-                </div>
-            <% } 
-        } %>
-    </form>
-<% } else { %>
 
-<% } %>
+            <% for (let field of fields) { %>
+                <div class="form-group">
+                    <% switch(field.type) {
+                        case 'boolean' : %>
+                            <%- include('../includes/entry/field-edit-boolean.ejs', {
+                                field, mode
+                            }) %>
+                            <% break;
+                    } %>
+                </div>
+            <% } %>
+            <button class="btn btn-success" type="submit">Save</button>
+        </form>
+    </div>
+</div>

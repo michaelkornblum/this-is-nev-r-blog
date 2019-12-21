@@ -3,22 +3,26 @@ const Field = require('../models/Field');
 const Entry = require('../models/Entry');
 
 exports.getEntryIndex = (req, res) =>
-	Field.findByCollectionId(req.query.collectionId, fields => 
-		fields.length 
+	Field.findByCollectionId(req.query.collectionId, fields =>
+		fields.length
 			? Collection.findById(req.query.collectionId, collection =>
-				Entry.findByCollectionId(collection.id, entries =>
-					res.render('entry/index', {
-						pageTitle: 'Entries',
-						collection,
-						entries,
-						entryId: null,
-						isDeleting: false,
-					}),
-				),
+					Entry.findByCollectionId(collection.id, entries =>
+						res.render('entry/index', {
+							pageTitle: 'Entries',
+							collection,
+							entries,
+							entryId: null,
+							isDeleting: false,
+							wasAdded: false,
+							wasEdited: false,
+							wasDeleted: false
+						}),
+					),
 			)
-			: res.redirect(`/collection/no-fields?collectionId=${req.query.collectionId}`)
-	)
-	
+			: res.redirect(
+					`/collection/no-fields?collectionId=${req.query.collectionId}`,
+			),
+	);
 
 exports.getAddEntry = (req, res) =>
 	Collection.findById(req.query.collectionId, collection =>
@@ -28,6 +32,7 @@ exports.getAddEntry = (req, res) =>
 				collection,
 				fields: fields.sort((a, b) => a.order - b.order),
 				isEditing: false,
+				mode: req.query.mode
 			}),
 		),
 	);
@@ -54,10 +59,15 @@ exports.getAddEntry = (req, res) =>
 // 		}),
 // 	);
 
-// exports.postAddCollection = (req, res) =>
-// 	new Collection(null, req.body.collectionName).save(err =>
-// 		err ? console.error(err) : res.redirect('/'),
-// 	);
+exports.postAddEntry = (req, res) =>
+	new Entry(
+		null,
+		req.params.collectionId,
+		'John Doe',
+		new Date(),
+		new Date(),
+		req.body,
+	).save(err => (err ? console.error(err) : console.log(req.body)));
 
 // exports.postEditCollection = (req, res) =>
 // 	new Collection(req.body.collectionId, req.body.collectionName).save(err =>
