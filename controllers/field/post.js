@@ -5,7 +5,7 @@ exports.postAddField = (req, res) =>
 	Field.findByName(camelCase(req.body.fieldName), fieldName =>
 		fieldName
 			? res.redirect(
-				`/field/duplicate?collectionId=${req.body.collectionId}&fieldName=${req.body.fieldName}`,
+					`/field/duplicate?collectionId=${req.body.collectionId}&fieldName=${req.body.fieldName}`,
 			)
 			: Field.findByCollectionId(req.body.collectionId, fields =>
 				new Field(
@@ -18,14 +18,16 @@ exports.postAddField = (req, res) =>
 				).save(err =>
 					err
 						? console.error(err)
-						: res.redirect(
-							`/field/config?fieldName=${camelCase(req.body.fieldName)}&collectionId=${req.body.collectionId}&mode=adding`,
+						: Field.findByName(
+							camelCase(req.body.fieldName),
+							field =>
+								res.redirect(
+									`/field/config?fieldId=${field.id}&collectionId=${req.body.collectionId}&mode=adding`,
+								),
 						),
 				),
-			)
-	
-	)
-	
+			),
+	);
 
 exports.postMoveUpField = (req, res) =>
 	Field.findById(req.body.fieldId, field =>
@@ -49,11 +51,11 @@ exports.postMoveUpField = (req, res) =>
 								field.order - 1,
 								field.config,
 						).save(err =>
-							err
-								? console.error(err)
-								: res.redirect(
-									`/field/moved?fieldName=${field.name}&collectionId=${field.collectionId}`,
-								),
+								err
+									? console.error(err)
+									: res.redirect(
+											`/field/moved?fieldName=${field.name}&collectionId=${field.collectionId}`,
+									),
 						),
 				),
 			),
@@ -82,11 +84,11 @@ exports.postMoveDownField = (req, res) =>
 								field.order + 1,
 								field.config,
 						).save(err =>
-							err
-								? console.error(err)
-								: res.redirect(
-									`/field/moved?fieldName=${field.name}&collectionId=${field.collectionId}`,
-								),
+								err
+									? console.error(err)
+									: res.redirect(
+											`/field/moved?fieldName=${field.name}&collectionId=${field.collectionId}`,
+									),
 						),
 				),
 			),
@@ -94,22 +96,22 @@ exports.postMoveDownField = (req, res) =>
 	);
 
 exports.postEditField = (req, res) =>
-		Field.findById(req.body.fieldId, field =>
-			new Field(
-				field.id,
-				camelCase(req.body.fieldName),
-				field.collectionId,
-				req.body.fieldType,
-				field.order,
-				{},
-			).save(err =>
-				err
-					? console.error(err)
-					: res.redirect(
-						`/field/config?fieldName=${req.body.fieldName}&collectionId=${field.collectionId}&mode=editing`,
-					),
-			),
-		);
+	Field.findById(req.body.fieldId, field =>
+		new Field(
+			field.id,
+			camelCase(req.body.fieldName),
+			field.collectionId,
+			req.body.fieldType,
+			field.order,
+			{},
+		).save(err =>
+			err
+				? console.error(err)
+				: res.redirect(
+						`/field/config?fieldId=${req.body.fieldId}&collectionId=${field.collectionId}&mode=editing`,
+				),
+		),
+	);
 
 exports.postConfigField = (req, res) =>
 	Field.findById(req.params.fieldId, field =>
@@ -127,17 +129,17 @@ exports.postConfigField = (req, res) =>
 				switch (req.params.mode) {
 					case 'adding':
 						res.redirect(
-							`/field/added?fieldName=${field.name}&collectionId=${field.collectionId}`,
+							`/field/added?fieldId=${req.params.fieldId}&collectionId=${field.collectionId}`,
 						);
 						break;
 					case 'editing':
 						res.redirect(
-							`/field/edited?fieldName=${field.name}&collectionId=${field.collectionId}`,
+							`/field/edited?fieldId=${req.params.fieldId}&collectionId=${field.collectionId}`,
 						);
 						break;
 					default:
 						res.redirect(
-							`/field/configured?fieldName=${field.name}&collectionId=${field.collectionId}`,
+							`/field/configured?fieldId=${req.params.fieldId}&collectionId=${field.collectionId}`,
 						);
 				}
 			}
@@ -166,7 +168,7 @@ exports.postDeleteField = (req, res) =>
 										err
 											? console.error(err)
 											: res.redirect(
-												`/field/deleted?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}`,
+													`/field/deleted?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}`,
 											),
 									);
 								}
@@ -178,7 +180,7 @@ exports.postDeleteField = (req, res) =>
 						err
 							? console.error(err)
 							: res.redirect(
-								`/field/deleted?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}`,
+									`/field/deleted?fieldName=${req.body.fieldName}&collectionId=${req.body.collectionId}`,
 							),
 					);
 				}
