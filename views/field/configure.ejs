@@ -34,8 +34,7 @@
 			include('../includes/field/form-edit-options.ejs', { field }) %> <%
 			break; case 'image' : %> <%-
 			include('../includes/field/form-edit-image.ejs', { field }) %> <%
-			break; default : %> <%-
-			include('../includes/field/form-edit-string.ejs', { field }) %> <% } %>
+			break; default : %> <%- include('../includes/field/form-edit-string.ejs', { field }) %> <% } %>
 	
 			<div class="form-group">
 				<button class="btn btn-success" type="submit">
