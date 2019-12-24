@@ -61,6 +61,16 @@
                                 field, mode
                             }) %>
                             <% break;
+                        case 'datetime' : %>
+                            <%- include('../includes/entry/field-edit-datetime.ejs', {
+                                field, mode, moment
+                            }) %>
+                            <% break;
+                        case 'hidden' : %>
+                            <%- include('../includes/entry/field-edit-hidden.ejs', {
+                                field
+                            }) %>
+                            <% break; 
                     } %>
                 </div>
             <% } %>

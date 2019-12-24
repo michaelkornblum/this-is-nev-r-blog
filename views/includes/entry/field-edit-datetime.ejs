@@ -1,0 +1,17 @@
+<div class="form-group">
+    <label class="form-label" for="<%= field.name %>">
+        <%= field.config.label %>
+    </label>
+
+    <input 
+        class="form-control" 
+        id="<%= field.name %>" 
+        type="datetime-local" 
+        name="<%= field.name %>"
+        <% if (mode === "edit") { %>
+            value="<%= entry[field.name] %>"
+        <% } %>
+        
+        required
+    />
+</div>

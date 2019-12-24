@@ -1,6 +1,8 @@
 const Collection = require('../models/Collection');
 const Field = require('../models/Field');
 const Entry = require('../models/Entry');
+const moment = require('moment');
+
 
 exports.getEntryIndex = (req, res) =>
 	Field.findByCollectionId(req.query.collectionId, fields =>
@@ -30,6 +32,7 @@ exports.getAddEntry = (req, res) =>
 			res.render('entry/edit', {
 				pageTitle: 'New Entry',
 				collection,
+				moment,
 				fields: fields.sort((a, b) => a.order - b.order),
 				isEditing: false,
 				mode: req.query.mode

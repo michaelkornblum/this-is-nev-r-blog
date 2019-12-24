@@ -17,8 +17,8 @@ module.exports = class Field extends Base {
 	}
 
 	static findPrev(array, itemOrder, callBack) {
-		const nextItem = array.find(item => item.order === itemOrder - 1);
-		callBack(nextItem);
+		const prevItem = array.find(item => item.order === itemOrder - 1);
+		callBack(prevItem);
 	}
 
 	static findRemaining(array, itemOrder, callBack) {

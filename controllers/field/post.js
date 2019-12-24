@@ -8,24 +8,24 @@ exports.postAddField = (req, res) =>
 					`/field/duplicate?collectionId=${req.body.collectionId}&fieldName=${req.body.fieldName}`,
 			)
 			: Field.findByCollectionId(req.body.collectionId, fields =>
-				new Field(
-					null,
-					camelCase(req.body.fieldName),
-					req.body.collectionId,
-					req.body.fieldType,
-					fields.length + 1,
-					{},
-				).save(err =>
-					err
-						? console.error(err)
-						: Field.findByName(
-							camelCase(req.body.fieldName),
-							field =>
-								res.redirect(
-									`/field/config?fieldId=${field.id}&collectionId=${req.body.collectionId}&mode=adding`,
-								),
-						),
-				),
+					new Field(
+						null,
+						camelCase(req.body.fieldName),
+						req.body.collectionId,
+						req.body.fieldType,
+						fields.length + 1,
+						{},
+					).save(err =>
+						err
+							? console.error(err)
+							: Field.findByName(
+									camelCase(req.body.fieldName),
+									field =>
+										res.redirect(
+											`/field/config?fieldId=${field.id}&collectionId=${req.body.collectionId}&mode=adding`,
+										),
+							),
+					),
 			),
 	);
 
