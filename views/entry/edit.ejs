@@ -46,7 +46,7 @@
 		            type="text"
 		            name="title"
                     id="entry-title"
-                    <% if (mode === "edit") { %>
+                    <% if (mode === "edit") { %> 
                         value="<%= entry.title %>"
                     <% } %>
 		            required
@@ -70,7 +70,38 @@
                             <%- include('../includes/entry/field-edit-hidden.ejs', {
                                 field
                             }) %>
-                            <% break; 
+                            <% break;
+                        case 'image' : %>
+                            <%- include('../includes/entry/field-edit-image.ejs', {
+                                field
+                            }) %>
+                            <% break;
+                        case 'link' : %>
+                            <%- include('../includes/entry/field-edit-link.ejs', {
+                                field
+                            }) %>
+                            <% break;
+                        case 'list' : %>
+                            <%- include('../includes/entry/field-edit-list.ejs', {
+                                field,
+                                stringToArray
+                            }) %>
+                            <% break;
+                        case 'number' : %>
+                            <%- include('../includes/entry/field-edit-number.ejs', {
+                                field
+                            }) %>
+                            <% break;
+                        case 'string' : %>
+                            <%- include('../includes/entry/field-edit-string.ejs', {
+                                field
+                            }) %>
+                            <% break;
+                        case 'text' : %>
+                            <%- include('../includes/entry/field-edit-text.ejs', {
+                                field
+                            }) %>
+                            <% break;
                     } %>
                 </div>
             <% } %>

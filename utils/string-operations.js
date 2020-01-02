@@ -10,3 +10,10 @@ exports.camelCase = string =>
 				word.toLowerCase().slice(1),
 		)
 		.join('');
+
+exports.stringToArray = string => {
+	const src = string.split(',');
+	let dest = [];
+	src.forEach(item => dest.push(item.trim()));
+	return dest;
+};

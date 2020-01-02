@@ -6,6 +6,10 @@
         <a href="/" class="breadcrumb-link">collections</a>
     </li>
     <li class="breadcrumb-item">
+        <a href="/entries?collectionId=<%= collection.id %>" class="breadcrumb-link">
+            <%= collection.name %> entries</a>
+    </li>
+    <li class="breadcrumb-item">
         <%= collection.name %> fields
     </li>
 </ul>

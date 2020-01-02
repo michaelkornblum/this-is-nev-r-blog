@@ -1,0 +1,12 @@
+<div class="form-group">
+	<label class="form-label" for="<%= field.name %>">
+		<%= field.config.label %>
+    </label>
+    <% if (field.config.element === "option") { %>
+        <select class="form-control" name="<%= field.name %>">
+            <% for(let listItem of stringToArray(field.config.list)) { %>
+                <option value="<%= listItem %>"><%= listItem %></option>
+            <% } %>
+        </select>
+    <% } %>
+</div>

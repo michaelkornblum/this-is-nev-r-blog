@@ -34,8 +34,14 @@
 			include('../includes/field/form-edit-options.ejs', { field }) %> <%
 			break; case 'image' : %> <%-
 			include('../includes/field/form-edit-image.ejs', { field }) %> <%
-			break; default : %> <%- include('../includes/field/form-edit-string.ejs', { field }) %> <% } %>
-	
+			break; case 'link' : %> <%-
+			include('../includes/field/form-edit-link.ejs', { field }) %> <%
+			break; case 'list' : %> <%-
+			include('../includes/field/form-edit-list.ejs', { field }) %> <%
+			break; case 'string' : %> <%-
+			include('../includes/field/form-edit-string.ejs', { field }) %> <% 
+			break; case 'text' : %> <%- include('../includes/field/form-edit-text.ejs', { field }) %> <% break; } %>
+
 			<div class="form-group">
 				<button class="btn btn-success" type="submit">
 					save &amp; exit

@@ -2,6 +2,7 @@ const Collection = require('../models/Collection');
 const Field = require('../models/Field');
 const Entry = require('../models/Entry');
 const moment = require('moment');
+const {stringToArray} = require("../utils/string-operations");
 
 
 exports.getEntryIndex = (req, res) =>
@@ -33,6 +34,7 @@ exports.getAddEntry = (req, res) =>
 				pageTitle: 'New Entry',
 				collection,
 				moment,
+				stringToArray,
 				fields: fields.sort((a, b) => a.order - b.order),
 				isEditing: false,
 				mode: req.query.mode

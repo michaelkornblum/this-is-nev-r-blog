@@ -5,13 +5,12 @@ const { capitalize } = require('../../utils/string-operations');
 const fieldTypes = [
 	'boolean',
 	'datetime',
-	// 'file',
 	'hidden',
 	'image',
-	// 'list',
+	'link',
+	'list',
 	'number',
-	'options',
-	// 'relation',
+	// relation
 	'string',
 	'text',
 ];
@@ -36,17 +35,19 @@ const defaultRenderObj = {
 const actionTaken = key => 
 	((req, res) =>
 		Collection.findById(req.query.collectionId, collection =>
-			Field.findByCollectionId(collection.id, fields =>
-				Field.sortByOrder(fields, fields =>
-					res.render('field/index', {
-						...defaultRenderObj,
-						collection,
-						fields,
-						fieldName: req.query.fieldName,
-						[key]: true,
-					}),
+			Field.findById(req.query.fieldId, field =>
+				Field.findByCollectionId(collection.id, fields =>
+					Field.sortByOrder(fields, fields =>
+						res.render('field/index', {
+							...defaultRenderObj,
+							collection,
+							fields,
+							fieldName: req.query.fieldName || field.name,
+							[key]: true,
+						}),
+					),
 				),
-			),
+			)
 		))
 
 exports.getFieldIndex = (req, res) =>

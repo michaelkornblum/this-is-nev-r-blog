@@ -1,0 +1,53 @@
+<div class="form-group">
+	<label class="form-label" for="field-label">Label</label>
+	<input
+		class="form-control"
+		type="text"
+		name="label"
+		id="field-label"
+		value="<%= field.config.label %>"
+		placeholder="ex: Title, Author"
+		required
+	/>
+</div>
+
+<div class="form-group">
+	<label class="form-label" for="field-list">List</label>
+	<input
+		class="form-control"
+		type="text"
+		name="list"
+		id="field-list"
+		value="<%= field.config.list %>"
+		placeholder="comma-seperated list ex: foo, bar, baz"
+		required
+	/>
+</div>
+
+<div class="form-group">
+    <legend class="col-form-label mr-4">HTML Element</legend>
+
+    <input
+        class="radio mt-2"
+        type="radio"
+        name="element"
+        id="field-element-option"
+        value="option"
+        <% if (field.config.element === "option" || !field.config.element) { %>
+            checked
+        <% } %>
+    />
+    <label class="col-form-label mr-2" for="field-element-option">Option</label>
+
+    <input
+        class="radio mt-2"
+        type="radio"
+        name="element"
+        id="field-element-radio"
+        value="radio"
+        <% if (field.config.element === "radio") { %>
+            checked
+        <% } %>
+    />
+    <label class="col-form-label mr-2" for="field-element-radio">Radio Box</label>
+</div>

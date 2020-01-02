@@ -1,0 +1,27 @@
+<div class="form-group">
+    <label class="form-label" for="<%= field.name %>">
+        <%= field.config.label %>
+    </label>
+
+    <input 
+        class="form-control" 
+        id="<%= field.name %>" 
+        type="text" 
+        name="<%= field.name %>"
+        <% if (mode === "edit") { %>
+            value="<%= entry[field.name] %>"
+        <% } %>
+        <% if (field.config.minValue) { %>
+            min="<%= field.config.minValue %>"
+        <% } %>
+        <% if (field.config.maxValue) { %>
+            max="<%= field.config.maxValue %>"
+        <% } %>
+        <% if (field.config.isRequired === "on") { %>
+            required
+        <% } %>
+        <% if (mode === "edit") { %>
+            value="<%= entry[field.name] %>"
+        <% } %> 
+    />
+</div>

@@ -1,0 +1,32 @@
+<div class="form-group">
+    <label class="form-label" for="<%= field.name + '-url' %>">
+        <%= field.config.label + ' Url' %>
+    </label>
+
+    <input 
+        class="form-control" 
+        id="<%= field.name + '-url' %>" 
+        type="url" 
+        name="<%= field.name + 'Url' %>"
+        <% if (mode === "edit") { %>
+            value="<%= entry[field.name] + 'Url' %>"
+        <% } %>
+        required
+    />
+</div>
+
+<div class="form-group">
+    <label class="form-label" for="<%= field.name + '-text' %>">
+        <%= field.config.label + ' text' %>
+    </label>
+    <input 
+        class="form-control" 
+        id="<%= field.name + '-text' %>" 
+        type="text" 
+        name="<%= field.name + 'Text' %>"
+        <% if (mode === "edit") { %>
+            value="<%= entry[field.name] + 'Text' %>"
+        <% } %>
+        required
+    />
+</div>
